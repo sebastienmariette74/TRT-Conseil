@@ -9,7 +9,7 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
-            chain_provider:
+        chain_provider:
             chain:
                 providers: [app_candidate_provider, app_recruiter_provider, app_consultant_provider]
         app_candidate_provider:
@@ -31,6 +31,11 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            custom_authenticator: App\Security\UserAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

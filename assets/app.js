@@ -11,6 +11,13 @@ import './styles/app.scss';
 // start the Stimulus application
 import './bootstrap';
 
+import { Popover } from 'bootstrap';
+
+document.querySelectorAll('[data-bs-toggle="popover"]')
+  .forEach(popover => {
+    new Popover(popover)
+  })
+
 import './js/_home';
 
 
