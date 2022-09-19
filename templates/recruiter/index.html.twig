@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recruteur{% endblock %}
+
+{% block body %}
+<h1>Bienvenue {{ app.user.email }}</h1>
+{# <a href="{{ path('app_recruiter_post') }}">Publier une annonce</a> <br> #}
+<a href="#">Publier une annonce</a> <br>
+<a href="#">Voir mes annonces</a> <br>
+<a href="#">Voir les candidatures</a>
+
+{% endblock %}
