@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Consultant{% endblock %}
+
+{% block body %}
+<h1>Bienvenue {{ app.user.email }}</h1>
+<a href="{{ path('app_consultant_accounts') }}">voir les comptes à valider</a> <br>
+<a href="">voir les annonces</a> <br>
+<a href="">voir vos candidatures</a>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Identifiant</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for account in accounts %}
+            <tr>
+                <td>{{ account.email }}</td>
+                <td><a href="{{ path('app_consultant_verif_account', { credential : account.email }) }}">VALIDER</a></td> 
+            </tr>  
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% for account in accounts %}
+    
+{% endfor %}
+
+{% endblock %}
