@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
     ORM\DiscriminatorColumn(name: "type", type: "string"),
     ORM\DiscriminatorMap(["candidate"=>"Candidate", "recruiter"=>"Recruiter", "consultant"=>"Consultant"])
 ]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'Il y a déjà un compte avec cet Email.')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -36,6 +36,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
+
+    #[ORM\Column]
+    private ?bool $isActivated = false;
 
     public function getId(): ?int
     {
@@ -115,6 +118,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function isIsActivated(): ?bool
+    {
+        return $this->isActivated;
+    }
+
+    public function setIsActivated(bool $isActivated): self
+    {
+        $this->isActivated = $isActivated;
 
         return $this;
     }

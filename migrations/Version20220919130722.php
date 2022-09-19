@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220919102325 extends AbstractMigration
+final class Version20220919130722 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,15 +20,12 @@ final class Version20220919102325 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE application MODIFY id INT NOT NULL');
-        $this->addSql('DROP INDEX `primary` ON application');
-        $this->addSql('ALTER TABLE application DROP id');
-        $this->addSql('ALTER TABLE application ADD PRIMARY KEY (job_offer_id, candidate_id)');
+        $this->addSql('ALTER TABLE user ADD is_activated TINYINT(1) NOT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE application ADD id INT AUTO_INCREMENT NOT NULL, DROP PRIMARY KEY, ADD PRIMARY KEY (id)');
+        $this->addSql('ALTER TABLE user DROP is_activated');
     }
 }
