@@ -29,10 +29,7 @@ class CandidateController extends AbstractController
     #[Route('/modifier-profil', name: '_edit')]
     public function edit(UserInterface $user, EntityManagerInterface $em, Request $request, FileUploader $fileUploader): Response
     {
-        // dd($user);
-        // $user->setCv(
-        //     new File($this->getParameter('cvs_directory').'/'.$user->getCv())
-        // );
+
         $form = $this->createForm(CandidateType::class, $user);
         $form->handleRequest($request);
 
@@ -43,9 +40,9 @@ class CandidateController extends AbstractController
 
             if ($CvFile) {
                 $cvFileName = $fileUploader->upload($CvFile);
-                // $product->setBrochureFilename($cvFileName);
                 $user->setCv($cvFileName);
             }
+            
             $em->persist($user);
             $em->flush();
 
@@ -53,5 +50,15 @@ class CandidateController extends AbstractController
         }
 
         return $this->renderForm('candidate/edit.html.twig', compact('form'));
+    }
+
+    #[Route('/supprimer-cv', name: '_remove_cv')]
+    public function removeCv(EntityManagerInterface $em, UserInterface $user): Response
+    {
+
+        $user->setCv('');
+        $em->flush();
+
+        return $this->redirectToRoute('app_candidate');
     }
 }

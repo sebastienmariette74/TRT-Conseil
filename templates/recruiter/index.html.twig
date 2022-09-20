@@ -9,4 +9,21 @@
 <a href="#">Voir mes annonces</a> <br>
 <a href="#">Voir les candidatures</a>
 
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Profil</h5>
+        <p class="card-text">Email : {{ app.user.email }}</p>
+        {% if is_granted('ROLE_RECRUITER') %}
+        <p class="card-text">Raison sociale : {{ app.user.name }}</p>
+        <p class="card-text">Adresse :
+            {% if app.user.address %}
+            {{ app.user.address }} - {{ app.user.zipcode }} - {{ app.user.city }}
+            {% endif %}
+        </p>
+        {% endif %}
+        <a href="{{ path('app_recruiter_edit') }}" class="btn btn-primary btn-sm">MODIFIER</a>
+    </div>
+</div>
+
 {% endblock %}
