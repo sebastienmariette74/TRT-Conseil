@@ -24,10 +24,14 @@
                         <li><a class="dropdown-item" href="{{ path('app_register' , {'type' : 'recruteur'}) }}">S'enregistrer</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{{ path('app_home') }}">Consultant</a>
-                    {# <a class="nav-link" aria-current="page" href="{{ path('app_consultant') }}">Consultant</a> #}
-                </li>        
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Consultant
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ path('app_register' , {'type' : 'consultant'}) }}">Enregistrer</a></li>
+                    </ul>
+                </li>
                 {% if app.user %}
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{{ path('app_logout') }}">Se déconnecter</a>

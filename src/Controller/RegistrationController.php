@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Candidate;
+use App\Entity\Consultant;
 use App\Entity\Recruiter;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
@@ -29,13 +30,33 @@ class RegistrationController extends AbstractController
     #[Route('/enregistrement/{type}', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, string $type): Response
     {
+        
+            $user = "" ;
+            if ($type === 'candidat' || $type === 'recruteur') {
+                $user = $type === 'candidat' ? new Candidate() : new Recruiter;
+            } else {
+                $user = new Consultant();
+            }
 
-            $user = $type === 'candidat' ? new Candidate() : new Recruiter;
+            $setRole = [];
+            
             $form = $this->createForm(RegistrationFormType::class, $user);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $user->setRoles($type === "candidat" ? ['ROLE_CANDIDATE'] : ['ROLE_RECRUITER']);
+                $roles = [
+                    'candidat' => ['ROLE_CANDIDATE'],
+                    'recruteur' => ['ROLE_RECRUITER'],
+                    'consultant' => ['ROLE_CONSULTANT']
+                ];
+                foreach ($roles as $key => $role) {
+                    if($key == $type){
+                        $setRole = $role;
+                        break;
+                    }                  
+                }
+
+                $user->setRoles($setRole);
                 // encode the plain password
                 $user->setPassword(
                     $userPasswordHasher->hashPassword(
@@ -46,7 +67,7 @@ class RegistrationController extends AbstractController
 
                 $entityManager->persist($user);
                 $entityManager->flush();
-                // dd($user);
+                
                 // generate a signed url and email it to the user
                 $this->emailVerifier->sendEmailConfirmation(
                     'app_verify_email',
