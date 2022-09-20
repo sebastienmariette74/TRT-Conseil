@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\JobOffer;
+use App\Form\JobOfferType;
 use App\Form\RecruiterType;
 use App\Repository\ApplicationRepository;
 use App\Repository\UserRepository;
