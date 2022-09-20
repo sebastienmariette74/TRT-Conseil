@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recruteur{% endblock %}
+
+{% block body %}
+<h1>Bienvenue {{ app.user.email }}</h1>
+{# <a href="{{ path('app_recruiter_post') }}">Publier une annonce</a> <br> #}
+<a href="#">Publier une annonce</a> <br>
+<a href="#">Voir mes annonces</a> <br>
+<a href="#">Voir les candidatures</a>
+
+<div>
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.address) }}
+    {{ form_row(form.zipcode) }}
+    {{ form_row(form.city) }}
+    <button type="submit" class="btn btn-primary mt-3">Modifier</button>
+    {{ form_end(form) }}
+</div>
+
+{% endblock %}

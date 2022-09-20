@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\JobOffer;
+use App\Form\RecruiterType;
 use App\Repository\ApplicationRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route('/recruteur', name: 'app_recruiter')]
 class RecruiterController extends AbstractController
@@ -18,6 +20,23 @@ class RecruiterController extends AbstractController
     public function index(): Response
     {
         return $this->render('recruiter/index.html.twig');
+    }
+
+    #[Route('/modifier-profil', name: '_edit')]
+    public function edit(UserInterface $user, EntityManagerInterface $em, Request $request): Response
+    {
+        $form = $this->createForm(RecruiterType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+           
+            $em->flush();
+
+            return $this->redirectToRoute('app_recruiter');
+        }
+
+        return $this->renderForm('recruiter/edit.html.twig', compact('form', $user));
     }
 
     #[Route('/recruteur/publier-une-annonce', name: '_post')]

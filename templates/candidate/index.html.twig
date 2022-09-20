@@ -4,8 +4,39 @@
 
 {% block body %}
 <h1>Bienvenue {{ app.user.email }}</h1>
+{# {{ dump(app.user) }} #}
 {# <a href="{{ path('app_candidate_posts') }}">voir les annonces</a> <br> #}
+{# <a href="{{ path('app_candidate_edit') }}">Compléter mon profil</a> <br> #}
 <a href="#">voir les annonces</a> <br>
 <a href="#">voir mes candidatures</a>
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Profil</h5>
+        <p class="card-text">Email : {{ app.user.email }}</p>
+        {% if is_granted("ROLE_CANDIDATE") %}        
+        <p class="card-text">Prénom : {{ app.user.firstname | capitalize }}</p>
+        <p class="card-text">Nom : {{ app.user.lastname | upper }}</p>
+        <p class="card-text">CV : 
+            {% if app.user.cv %}
+            <a href="{{ asset('uploads/cvs/' ~ app.user.cv ) }} " target="_blank">Voir le CV</a>
+            <a href="{{ path('app_candidate_remove_cv') }}" type="button" class="btn btn-danger btn-sm">supprimer CV</a>
+            {% endif %}
+            {# <a href="{{ path('app_candidate_remove_cv' , { cv : app.user.cv }) }}" type="button" class="btn btn-danger btn-sm">supprimer CV</a> #}
+        </p>
+        {% endif %}
+        <a href="{{ path('app_candidate_edit') }}" class="btn btn-primary">MODIFIER</a>
+    </div>
+</div>
+
+{# <div>
+    {{ form_start(form) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.firstname) }}
+    {{ form_row(form.lastname) }}
+    {{ form_row(form.cv) }}
+    <button type="submit" class="btn btn-primary mt-3">Modifier</button>
+    {{ form_end(form) }}
+</div> #}
 
 {% endblock %}
