@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recruteur{% endblock %}
+
+{% block body %}
+<h1>Bienvenue {{ app.user.email }}</h1>
+
+<a href="{{ path('app_candidate_job_offers') }}">Voir les annonces</a> <br>
+<a href="{{ path('app_candidate_my_applications') }}">Voir mes candidatures</a>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Intitulé</th>
+                <th scope="col">Ville</th>
+                <th scope="col">Description</th>
+                <th scope="col"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for jobOffer in jobOffers %}
+            
+            {% if jobOffer.isActivated %}
+            <tr>
+                <td>{{ jobOffer.title }}</td>
+                <td>{{ jobOffer.city }}</td>
+                <td>{{ jobOffer.description | raw }}</td>
+                {# {% if jobOffer.id in jOId %}
+                <td><a href="{{ path('app_candidate_apply', { id : jobOffer.id }) }}" type="button"
+                        class="btn btn-primary btn-sm disabled">POSTULER</a></td>
+                {% else %}
+                <td><a href="{{ path('app_candidate_apply', { id : jobOffer.id }) }}" type="button"
+                    class="btn btn-primary btn-sm">POSTULER</a></td>
+                {% endif %} #}
+
+                <td><a href="{{ path('app_candidate_apply', { id : jobOffer.id }) }}" type="button"
+                    class="btn btn-primary btn-sm {{ jobOffer.id in jOId ? 'disabled' : '' }}">POSTULER</a></td>
+                
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

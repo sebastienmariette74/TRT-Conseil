@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\JobOffer;
+use App\Form\JobOfferType;
 use App\Form\RecruiterType;
 use App\Repository\ApplicationRepository;
+use App\Repository\JobOfferRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -65,4 +67,24 @@ class RecruiterController extends AbstractController
 
         return $this->renderForm('recruiter/post.html.twig', compact('form'));
     }
+
+    #[Route('/recruteur/mes-annonces', name: '_job_offers')]
+    public function showMyJobOffers(
+        JobOfferRepository $jobOfferRepo
+    ): Response
+    {
+        $jobOffers = $jobOfferRepo->findAll();
+
+        return $this->render('recruiter/jobOffers.html.twig', compact('jobOffers'));
+    }
+
+    // #[Route('/recruteur/mes-annonces', name: '_job_offers')]
+    // public function showMyJobOffers(
+    //     JobOfferRepository $jobOfferRepo
+    // ): Response
+    // {
+    //     $jobOffers = $jobOfferRepo->findAll();
+
+    //     return $this->render('recruiter/jobOffers.html.twig', compact('jobOffers'));
+    // }
 }

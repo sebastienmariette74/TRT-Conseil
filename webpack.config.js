@@ -72,7 +72,7 @@ Encore
 
         // only copy files matching this pattern
         //pattern: /\.(png|jpg|jpeg)$/
-    })
+        })
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()

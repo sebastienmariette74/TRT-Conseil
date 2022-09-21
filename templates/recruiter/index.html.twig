@@ -4,11 +4,8 @@
 
 {% block body %}
 <h1>Bienvenue {{ app.user.email }}</h1>
-{# <a href="{{ path('app_recruiter_post') }}">Publier une annonce</a> <br> #}
-<a href="#">Publier une annonce</a> <br>
-<a href="#">Voir mes annonces</a> <br>
-<a href="#">Voir les candidatures</a>
 
+{% include "recruiter/_nav.html.twig" %}
 
 <div class="card" style="width: 18rem;">
     <div class="card-body">

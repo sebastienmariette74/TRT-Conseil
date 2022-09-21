@@ -12,24 +12,26 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Identifiant</th>
+                <th scope="col">Intitulé</th>
+                <th scope="col">Ville</th>
+                <th scope="col">Description</th>
                 <th scope="col"></th>
+
             </tr>
         </thead>
         <tbody>
-            {% for account in accounts %}
+            {% for jobOffer in jobOffers %}
+            {% if not jobOffer.isActivated %}
             <tr>
-                <td>{{ account.email }}</td>
-                <td><a href="{{ path('app_consultant_verif_account', { credential : account.email }) }}">VALIDER</a></td> 
-            </tr>  
+                <td>{{ jobOffer.title }}</td>
+                <td>{{ jobOffer.city }}</td>
+                <td>{{ jobOffer.description | raw}}</td>  
+                <td><a href="{{ path('app_consultant_activate_job_offer' , {id: jobOffer.id}) }}" type="button" class="btn btn-primary">ACTIVER</a></td>  
+            </tr>
+            {% endif %}            
             {% endfor %}
         </tbody>
     </table>
 </div>
-
-
-{% for account in accounts %}
-    
-{% endfor %}
 
 {% endblock %}

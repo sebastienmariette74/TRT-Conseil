@@ -29,5 +29,8 @@
     },
     "browserslist": [
         "defaults"
-    ]
+    ],
+    "dependencies": {
+        "ckeditor4": "^4.13.0"
+    }
 }
