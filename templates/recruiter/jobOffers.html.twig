@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recruteur{% endblock %}
+
+{% block body %}
+
+<h1>Bienvenue {{ app.user.email }}</h1>
+
+{% include "recruiter/_nav.html.twig" %}
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Intitulé</th>
+                <th scope="col">Ville</th>
+                <th scope="col">Description</th>
+                <th scope="col">Annonce active</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for jobOffer in jobOffers %}
+            <tr>
+                <td>{{ jobOffer.title }}</td>
+                <td>{{ jobOffer.city }}</td>
+                <td>{{ jobOffer.description | raw}}</td>
+                <td>
+                    <div class="form-check">
+                        {% set checked = jobOffer.isActivated ? 'checked' : ''%}                        
+                        <input class="form-check-input" type="checkbox" value="" {{ checked }} disabled
+                        >
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

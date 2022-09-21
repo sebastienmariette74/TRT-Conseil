@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Candidat{% endblock %}
+
+{% block body %}
+<h1>Bienvenue {{ app.user.email }}</h1>
+
+<a href="{{ path('app_candidate_job_offers') }}">Voir les annonces</a> <br>
+<a href="{{ path('app_candidate_my_applications') }}">Voir mes candidatures</a>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Intitulé</th>
+                <th scope="col">Ville</th>
+                <th scope="col">Description</th>
+                <th scope="col"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in applications %}
+            {% if application.isActivated %}
+            <tr>
+                <td>{{ application.jobOffer.title }}</td>
+                <td>{{ application.jobOffer.city }}</td>
+                <td>{{ application.jobOffer.description | raw }}</td>     
+                <td><a href="{{ path('app_candidate_application_remove', { id : application.jobOffer.id}) }}" type="button" class="btn btn-sm btn-danger">SUPPRIMER</a></td> 
+            </tr>
+            {% endif %}            
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -36,7 +36,7 @@ class JobOffer
 
     #[ORM\ManyToOne(inversedBy: 'jobOffers')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Recruiter $Recruiter = null;
+    private ?Recruiter $recruiter = null;
 
     public function __construct()
     {
@@ -140,12 +140,12 @@ class JobOffer
 
     public function getRecruiter(): ?Recruiter
     {
-        return $this->Recruiter;
+        return $this->recruiter;
     }
 
-    public function setRecruiter(?Recruiter $Recruiter): self
+    public function setRecruiter(?Recruiter $recruiter): self
     {
-        $this->Recruiter = $Recruiter;
+        $this->recruiter = $recruiter;
 
         return $this;
     }

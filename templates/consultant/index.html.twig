@@ -4,8 +4,8 @@
 
 {% block body %}
 <h1>Bienvenue {{ app.user.email }}</h1>
-<a href="{{ path('app_consultant_accounts') }}">voir les comptes à valider</a> <br>
-<a href="">voir les annonces</a> <br>
-<a href="">voir vos candidatures</a>
+<a href="{{ path('app_consultant_accounts') }}">Voir les comptes à valider</a> <br>
+<a href="{{ path('app_consultant_job_offers') }}">Voir les annonces à valider</a> <br>
+<a href="{{ path('app_consultant_applications') }}">Voir vos candidatures à valider</a>
 
 {% endblock %}

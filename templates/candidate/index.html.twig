@@ -4,11 +4,9 @@
 
 {% block body %}
 <h1>Bienvenue {{ app.user.email }}</h1>
-{# {{ dump(app.user) }} #}
-{# <a href="{{ path('app_candidate_posts') }}">voir les annonces</a> <br> #}
-{# <a href="{{ path('app_candidate_edit') }}">Compléter mon profil</a> <br> #}
-<a href="#">voir les annonces</a> <br>
-<a href="#">voir mes candidatures</a>
+
+<a href="{{ path('app_candidate_job_offers') }}">Voir les annonces</a> <br>
+<a href="{{ path('app_candidate_my_applications') }}">Voir mes candidatures</a>
 
 <div class="card" style="width: 18rem;">
     <div class="card-body">
