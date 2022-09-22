@@ -6,25 +6,34 @@ use App\Repository\ApplicationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ApplicationRepository::class)]
+#[UniqueEntity(
+    fields: ['candidate', 'jobOffer']
+)]
 class Application
 {
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
     #[ORM\Column]
     private ?bool $isActivated = false;
 
-    
-    #[ORM\ManyToOne(inversedBy: 'applications')]
-    private ?Consultant $Consultant = null;
+    // #[ORM\ManyToOne(targetEntity: Consultant::class, inversedBy: 'applications')]
+    // private ?Consultant $Consultant = null;
 
-    #[ORM\Id]
-    #[ORM\ManyToOne(inversedBy: 'applications')]
+    #[ORM\ManyToOne(targetEntity: JobOffer::class, inversedBy: 'applications')]
     #[ORM\JoinColumn(nullable: false)]
     private ?JobOffer $jobOffer = null;
 
-    #[ORM\Id]
-    #[ORM\ManyToOne(inversedBy: 'applications')]
+    #[ORM\ManyToOne(targetEntity: Candidate::class, inversedBy: 'applications')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Candidate $Candidate = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function isIsActivated(): ?bool
     {
@@ -38,17 +47,17 @@ class Application
         return $this;
     }
 
-    public function getConsultant(): ?Consultant
-    {
-        return $this->Consultant;
-    }
+    // public function getConsultant(): ?Consultant
+    // {
+    //     return $this->Consultant;
+    // }
 
-    public function setConsultant(?Consultant $Consultant): self
-    {
-        $this->Consultant = $Consultant;
+    // public function setConsultant(?Consultant $Consultant): self
+    // {
+    //     $this->Consultant = $Consultant;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getJobOffer(): ?JobOffer
     {

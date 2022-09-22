@@ -11,6 +11,7 @@
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.13",
+        "easycorp/easyadmin-bundle": "^4.3",
         "friendsofsymfony/ckeditor-bundle": "^2.4",
         "symfony/console": "6.1.*",
         "symfony/dotenv": "6.1.*",
@@ -83,5 +84,8 @@
             "allow-contrib": false,
             "require": "6.1.*"
         }
+    },
+    "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4"
     }
 }

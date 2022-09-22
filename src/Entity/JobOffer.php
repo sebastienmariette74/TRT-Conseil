@@ -28,8 +28,8 @@ class JobOffer
     #[ORM\Column]
     private ?bool $isActivated = false;
 
-    #[ORM\ManyToOne(inversedBy: 'jobOffers')]
-    private ?Consultant $consultant = null;
+    // #[ORM\ManyToOne(inversedBy: 'jobOffers')]
+    // private ?Consultant $consultant = null;
 
     #[ORM\OneToMany(mappedBy: 'jobOffer', targetEntity: Application::class, orphanRemoval: true)]
     private Collection $applications;
@@ -96,17 +96,17 @@ class JobOffer
         return $this;
     }
 
-    public function getConsultant(): ?Consultant
-    {
-        return $this->consultant;
-    }
+    // public function getConsultant(): ?Consultant
+    // {
+    //     return $this->consultant;
+    // }
 
-    public function setConsultant(?Consultant $consultant): self
-    {
-        $this->consultant = $consultant;
+    // public function setConsultant(?Consultant $consultant): self
+    // {
+    //     $this->consultant = $consultant;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Application>

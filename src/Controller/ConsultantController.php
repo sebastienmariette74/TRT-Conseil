@@ -1,10 +1,6 @@
 <?php
 
 namespace App\Controller;
-
-use App\Entity\Application;
-use App\Entity\JobOffer;
-use App\Entity\User;
 use App\Repository\ApplicationRepository;
 use App\Repository\JobOfferRepository;
 use App\Repository\UserRepository;
@@ -16,6 +12,14 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/consultant', name: 'app_consultant')]
 class ConsultantController extends AbstractController
 {
+    public function __construct(
+        private EntityManagerInterface $em, 
+        private UserRepository $userRepo,
+        private JobOfferRepository $jobOfferRepo,
+        private ApplicationRepository $applicationRepo
+        )
+    {}
+    
     #[Route('/', name: '')]
     public function index(): Response
     {
@@ -23,94 +27,61 @@ class ConsultantController extends AbstractController
     }
 
     #[Route('/comptes', name: '_accounts')]
-    public function showAccounts(UserRepository $userRepo): Response
+    public function showAccounts(): Response
     {
-
-        // $accounts = $userRepo->findBy('isActivated');
-        $accounts = $userRepo->findByRoles();
-
+        $accounts = $this->userRepo->findByRoles();        
         return $this->render('consultant/accounts.html.twig', compact('accounts'));
     }
 
-    #[Route('/validation-du-compte/{credential}', name: '_verif_account')]
-    public function verifyAccount(UserRepository $userRepo, $credential, EntityManagerInterface $em): Response
+    #[Route('/validation-du-compte/{id}', name: '_verif_account')]
+    public function verifyAccount($id): Response
     {
-        $user = $userRepo->findOneBy(['email' => $credential]);
-        $user->setIsActivated(true);    
-        // $em->persist($user);
-        $em->flush();
+        $user = $this->userRepo->findOneBy(['id' => $id]);
+        $user->setIsActivated(true);
 
-        $accounts = $userRepo->findByRoles();
+        $this->em->flush();
 
-        return $this->render('consultant/accounts.html.twig', compact('accounts'));
+        return $this->redirectToRoute('app_consultant_accounts');
     }
 
     #[Route('/annonces', name: '_job_offers')]
-    public function showJobOffers(
-        JobOfferRepository $jobOfferRepo
-    ): Response
+    public function showJobOffers(): Response 
     {
-        $jobOffers = $jobOfferRepo->findAll();
+        $jobOffers = $this->jobOfferRepo->findAll();   
 
         return $this->render('consultant/jobOffers.html.twig', compact('jobOffers'));
     }
 
-    #[Route('/activer-annonce/{id}', name: '_activate_job_offer')]
-    public function activateJobOffer(
-        $id,
-        JobOfferRepository $jobOfferRepo,
-        EntityManagerInterface $em
-    ): Response
-    {
-        $jobOffer = $jobOfferRepo->findOneBy(['id' => $id]);
-        $jobOffer
-            ->setIsActivated(true)
-            ->setConsultant($this->getUser());
-        $em->flush();
+    #[Route('/annonces/activer-annonce/{id}', name: '_activate_job_offer')]
+    public function activateJobOffer($id): Response 
+    {        
+        $jobOffer = $this->jobOfferRepo->findOneBy(['id' => $id]);
+        $jobOffer->setIsActivated(true);
 
-        $jobOffers = $jobOfferRepo->findAll();
+        $this->em->flush();
 
-        return $this->render('consultant/jobOffers.html.twig', compact('jobOffers'));
+        return $this->redirectToRoute('app_consultant_job_offers');
     }
 
     #[Route('/candidatures', name: '_applications')]
-    public function showApplications(
-        ApplicationRepository $applicationRepo
-    ): Response
-    {
-        $applications = $applicationRepo->findAll();
-        // dd($applications);
+    public function showApplications(): Response {
+
+        $applications = $this->applicationRepo->findAll();
 
         return $this->render('consultant/applications.html.twig', compact('applications'));
+
     }
 
-    #[Route('/candidatures/activer-candidature/{email}/{id}', name: '_activate_application')]
-    public function activateApplication(
-        $email,
-        $id,
-        JobOfferRepository $jobOfferRepo,
-        EntityManagerInterface $em,
-        ApplicationRepository $applicationRepo,
-        UserRepository $userRepo
-    ): Response
+    #[Route('/candidatures/activer-candidature/{id}', name: '_activate_application')]
+    public function activateApplication($id): Response 
     {
-        $candidate = $userRepo->findOneBy(['email' => $email]);
-        $jobOffer = $jobOfferRepo->findOneBy(['id' => $id]);
-        
-        $application = $applicationRepo->findOneBy([
-            'Candidate' => $candidate,
-            'jobOffer' => $jobOffer
-        ]);
-        
+
+        $application = $this->applicationRepo->findOneBy(['id' => $id]);
         $application
-            ->setIsActivated(true)
-            ->setConsultant($this->getUser());
+            ->setIsActivated(true);
 
-        $em->flush();
+        $this->em->flush();
 
-        $jobOffers = $jobOfferRepo->findAll();
-
-        return $this->render('consultant/jobOffers.html.twig', compact('jobOffers'));
+        return $this->redirectToRoute('app_consultant_applications');
     }
-
 }

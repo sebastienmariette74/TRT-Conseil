@@ -80,6 +80,8 @@ class RegistrationController extends AbstractController
                 );
                 // do anything else you need here, like send an email
 
+                $this->addFlash('success', 'Email envoyé');
+
                 return $this->redirectToRoute('app_home');
             }
 
