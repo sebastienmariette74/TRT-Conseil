@@ -3,11 +3,9 @@
 {% block title %}Consultant{% endblock %}
 
 {% block body %}
-<h1>Bienvenue {{ app.user.email }}</h1>
-<a href="{{ path('app_consultant_accounts') }}">Voir les comptes à valider</a> <br>
-<a href="{{ path('app_consultant_job_offers') }}">Voir les annonces à valider</a> <br>
-<a href="{{ path('app_consultant_applications') }}">Voir vos candidatures à valider</a>
+{# <h1>Bienvenue {{ app.user.email }}</h1> #}
 
+{% include "consultant/_main.html.twig" %}
 
 <div>
     <table class="table">
@@ -16,7 +14,7 @@
                 <th scope="col">Intitulé</th>
                 <th scope="col">Ville</th>
                 <th scope="col">Description</th>
-                <th scope="col">Email</th>
+                <th scope="col">Candidat</th>
                 <th scope="col"></th>
 
             </tr>
@@ -29,7 +27,7 @@
                 <td>{{ application.jobOffer.city}}</td>
                 <td>{{ application.jobOffer.description | raw }}</td>
                 <td>{{ application.candidate.email}}</td>
-                <td><a href="{{ path('app_consultant_activate_application' , { email : application.candidate.email, id : application.jobOffer.id}) }}" type="button" class="btn btn-primary">ACTIVER</a></td>  
+                <td><a href="{{ path('app_consultant_activate_application' , { id : application.id}) }}" type="button" class="btn btn-primary">ACTIVER</a></td>  
 
             </tr>
             {% endif %}

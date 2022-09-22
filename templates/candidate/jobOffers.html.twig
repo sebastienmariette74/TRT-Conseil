@@ -27,14 +27,6 @@
                 <td>{{ jobOffer.title }}</td>
                 <td>{{ jobOffer.city }}</td>
                 <td>{{ jobOffer.description | raw }}</td>
-                {# {% if jobOffer.id in jOId %}
-                <td><a href="{{ path('app_candidate_apply', { id : jobOffer.id }) }}" type="button"
-                        class="btn btn-primary btn-sm disabled">POSTULER</a></td>
-                {% else %}
-                <td><a href="{{ path('app_candidate_apply', { id : jobOffer.id }) }}" type="button"
-                    class="btn btn-primary btn-sm">POSTULER</a></td>
-                {% endif %} #}
-
                 <td><a href="{{ path('app_candidate_apply', { id : jobOffer.id }) }}" type="button"
                     class="btn btn-primary btn-sm {{ jobOffer.id in jOId ? 'disabled' : '' }}">POSTULER</a></td>
                 

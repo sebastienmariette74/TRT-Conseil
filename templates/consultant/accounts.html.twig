@@ -3,10 +3,9 @@
 {% block title %}Consultant{% endblock %}
 
 {% block body %}
-<h1>Bienvenue {{ app.user.email }}</h1>
-<a href="{{ path('app_consultant_accounts') }}">Voir les comptes à valider</a> <br>
-<a href="{{ path('app_consultant_job_offers') }}">Voir les annonces à valider</a> <br>
-<a href="{{ path('app_consultant_applications') }}">Voir vos candidatures à valider</a>
+{# <h1>Bienvenue {{ app.user.email }}</h1> #}
+
+{% include "consultant/_main.html.twig" %}
 
 <div>
     <table class="table">
@@ -20,13 +19,12 @@
             {% for account in accounts %}
             <tr>
                 <td>{{ account.email }}</td>
-                <td><a href="{{ path('app_consultant_verif_account', { credential : account.email }) }}">VALIDER</a></td> 
+                <td><a href="{{ path('app_consultant_verif_account', { id : account.id }) }}" type="button" class="btn btn-primary btn-sm">VALIDER</a></td> 
             </tr>  
             {% endfor %}
         </tbody>
     </table>
 </div>
-
 
 {% for account in accounts %}
     

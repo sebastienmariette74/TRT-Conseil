@@ -32,10 +32,10 @@ class Candidate extends User
         $this->applications = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    // public function getId(): ?int
+    // {
+    //     return $this->id;
+    // }
 
     public function getFirstname(): ?string
     {
@@ -102,4 +102,14 @@ class Candidate extends User
 
         return $this;
     }
+
+    // public function serialize()
+    // {
+    //     return serialize($this->id);
+    // }
+
+    // public function unserialize($data)
+    // {
+    //     $this->id = unserialize($data);
+    // }
 }

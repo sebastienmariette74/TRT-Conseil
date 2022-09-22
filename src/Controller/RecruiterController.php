@@ -31,7 +31,6 @@ class RecruiterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
            
             $em->flush();
 
@@ -73,18 +72,18 @@ class RecruiterController extends AbstractController
         JobOfferRepository $jobOfferRepo
     ): Response
     {
-        $jobOffers = $jobOfferRepo->findAll();
+        $jobOffers = $jobOfferRepo->findBy(['recruiter' => $this->getUser()]);
 
         return $this->render('recruiter/jobOffers.html.twig', compact('jobOffers'));
     }
 
-    // #[Route('/recruteur/mes-annonces', name: '_job_offers')]
-    // public function showMyJobOffers(
-    //     JobOfferRepository $jobOfferRepo
-    // ): Response
-    // {
-    //     $jobOffers = $jobOfferRepo->findAll();
+    #[Route('/recruteur/candidatures', name: '_applications')]
+    public function showApplications(
+        ApplicationRepository $applicationRepo
+    ): Response
+    {
+        $applications = $applicationRepo->findBy(['jobOffer' => $this->getUser()]);
 
-    //     return $this->render('recruiter/jobOffers.html.twig', compact('jobOffers'));
-    // }
+        return $this->render('recruiter/applications.html.twig', compact('applications'));
+    }
 }

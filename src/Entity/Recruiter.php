@@ -27,7 +27,7 @@ class Recruiter extends User
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $city = null;
 
-    #[ORM\OneToMany(mappedBy: 'Recruiter', targetEntity: JobOffer::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'recruiter', targetEntity: JobOffer::class, orphanRemoval: true)]
     private Collection $jobOffers;
 
     public function __construct()
@@ -35,10 +35,10 @@ class Recruiter extends User
         $this->jobOffers = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    // public function getId(): ?int
+    // {
+    //     return $this->id;
+    // }
 
     public function getName(): ?string
     {
