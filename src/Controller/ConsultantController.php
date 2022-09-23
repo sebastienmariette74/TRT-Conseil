@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Application;
+use App\Entity\User;
 use App\Repository\ApplicationRepository;
 use App\Repository\JobOfferRepository;
 use App\Repository\UserRepository;
@@ -25,7 +26,8 @@ class ConsultantController extends AbstractController
         private UserRepository $userRepo,
         private JobOfferRepository $jobOfferRepo,
         private ApplicationRepository $applicationRepo,
-        private MailerInterface $mailer
+        private MailerInterface $mailer,
+        private SendMailService $mail
     ) {
     }
 
@@ -58,15 +60,25 @@ class ConsultantController extends AbstractController
     }
 
     #[Route('/validation-du-compte/{id}', name: '_verif_account')]
-    public function verifyAccount($id): Response
+    public function verifyAccount(User $user): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         } else {
-            $user = $this->userRepo->findOneBy(['id' => $id]);
             $user->setIsActivated(true);
 
             $this->em->flush();
+
+            $this->mail->send(
+                'no-reply@TRT-Conseil.fr',
+                $user->getEmail(),
+                'Validation de votre compte',
+                'activate_account',
+                compact('user'),
+                null
+            );
+
+            $this->addFlash('success', 'Email envoyé' );
 
             return $this->redirectToRoute('app_consultant_accounts');
         }
@@ -116,7 +128,7 @@ class ConsultantController extends AbstractController
     }
 
     #[Route('/candidatures/activer-candidature/{id}', name: '_activate_application')]
-    public function activateApplication(Application $application, SendMailService $mail): Response
+    public function activateApplication(Application $application): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -129,7 +141,7 @@ class ConsultantController extends AbstractController
 
             $this->em->flush();
 
-            $mail->send(
+            $this->mail->send(
                 'no-reply@TRT-Conseil.fr',
                 $emailRecruiter,
                 'Nouvelle candidature',

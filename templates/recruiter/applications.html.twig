@@ -4,8 +4,6 @@
 
 {% block body %}
 
-<h1>Bienvenue {{ app.user.email }}</h1>
-
 {% include "recruiter/_main.html.twig" %}
 
 <div>
@@ -31,8 +29,6 @@
                     {{ application.candidate.email }} <br>
                     <a href="{{ asset('build/uploads/' ~ application.candidate.cv ) }} " target="_blank">Voir le CV</a>
                 </td>
-                {# <td><a href="{{ path('app_consultant_activate_application' , { email : application.candidate.email, id : application.jobOffer.id}) }}" type="button" class="btn btn-primary">ACTIVER</a></td>   #}
-
             </tr>
             {% endfor %}
 

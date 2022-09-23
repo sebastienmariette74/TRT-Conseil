@@ -1,0 +1,15 @@
+<h1>Activation de votre compte</h1>
+
+
+
+<h1>Bonjour 
+    {% if "ROLE_CANDIDATE" in user.roles %}
+    {{ (user.firstname is defined and user.firstname is not null) and (user.lastname is defined and user.lastname is not null) ? user.firstname|capitalize~" "~user.lastname|upper~',' : user.email~',' }}
+    {% else %}
+    {{ (user.name is defined and user.name is not null) ? user.name|capitalize~',' : user.email~',' }}
+    {% endif %}
+</h1>
+<p>Nous avons le plaisir de vous annoncer l'activation de votre compte.</p>
+<p>Vous pouvez dès à présent bénéficier de tous nos services.</p>
+<p>Cordialement.</p>
+<p>TRT Conseil.</p>

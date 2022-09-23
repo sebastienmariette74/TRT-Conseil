@@ -16,8 +16,8 @@ class SendMailService extends AbstractController
         string $to,
         string $subject,
         string $template,
-        array $context,
-        string $attach
+        array $context = null,
+        string $attach = null
     ): void
     {
         $email = (new TemplatedEmail())
@@ -25,10 +25,11 @@ class SendMailService extends AbstractController
                     ->to($to)
                     ->subject($subject)
                     ->htmlTemplate("email/$template.html.twig")
-                    ->context($context)
-                    ->attachFromPath($this->getParameter('cvs_directory')."/$attach");
-                    // ->attachFromPath("../public/uploads/cvs/$attach");
-
+                    ->context($context);
+        if ($attach != null) {
+            $email->attachFromPath($this->getParameter('cvs_directory')."/$attach");
+        }
+                    
         $this->mailer->send($email);
     }
 }

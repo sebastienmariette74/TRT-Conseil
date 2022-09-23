@@ -3,9 +3,9 @@
 {% block title %}Candidat{% endblock %}
 
 {% block body %}
-<h1>Bienvenue {{ app.user.email }}</h1>
 
 {% include "candidate/_main.html.twig" %}
+{% include "_partials/_flash.html.twig" %}
 
 <div class="card" style="width: 18rem;">
     <div class="card-body">
@@ -19,21 +19,9 @@
             <a href="{{ asset('build/uploads/' ~ app.user.cv ) }} " target="_blank">Voir le CV</a>
             <a href="{{ path('app_candidate_remove_cv') }}" type="button" class="btn btn-danger btn-sm">supprimer CV</a>
             {% endif %}
-            {# <a href="{{ path('app_candidate_remove_cv' , { cv : app.user.cv }) }}" type="button" class="btn btn-danger btn-sm">supprimer CV</a> #}
         </p>
         {% endif %}
         <a href="{{ path('app_candidate_edit') }}" class="btn btn-sm btn-primary">MODIFIER</a>
     </div>
 </div>
-
-{# <div>
-    {{ form_start(form) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.firstname) }}
-    {{ form_row(form.lastname) }}
-    {{ form_row(form.cv) }}
-    <button type="submit" class="btn btn-primary mt-3">Modifier</button>
-    {{ form_end(form) }}
-</div> #}
-
 {% endblock %}

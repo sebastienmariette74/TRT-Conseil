@@ -80,7 +80,7 @@ class RegistrationController extends AbstractController
                 );
                 // do anything else you need here, like send an email
 
-                $this->addFlash('success', 'Email envoyé');
+                $this->addFlash('success', 'Un email de confirmation vous attend dans votre boîte mail.');
 
                 return $this->redirectToRoute('app_home');
             }
@@ -105,7 +105,7 @@ class RegistrationController extends AbstractController
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        $this->addFlash('success', 'Votre adresse email a été vérifiée.');
 
         return $this->redirectToRoute('app_home');
     }
