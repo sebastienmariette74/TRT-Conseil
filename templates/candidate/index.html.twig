@@ -5,8 +5,7 @@
 {% block body %}
 <h1>Bienvenue {{ app.user.email }}</h1>
 
-<a href="{{ path('app_candidate_job_offers') }}">Voir les annonces</a> <br>
-<a href="{{ path('app_candidate_my_applications') }}">Voir mes candidatures</a>
+{% include "candidate/_main.html.twig" %}
 
 <div class="card" style="width: 18rem;">
     <div class="card-body">
@@ -23,7 +22,7 @@
             {# <a href="{{ path('app_candidate_remove_cv' , { cv : app.user.cv }) }}" type="button" class="btn btn-danger btn-sm">supprimer CV</a> #}
         </p>
         {% endif %}
-        <a href="{{ path('app_candidate_edit') }}" class="btn btn-primary">MODIFIER</a>
+        <a href="{{ path('app_candidate_edit') }}" class="btn btn-sm btn-primary">MODIFIER</a>
     </div>
 </div>
 

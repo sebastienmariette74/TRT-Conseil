@@ -62,13 +62,13 @@ Encore
     .enablePostCssLoader()
 
     .copyFiles({
-        from: './assets/images',
+        from: './assets/uploads',
 
         // optional target path, relative to the output dir
-        // to: 'images/[path][name].[ext]',
+        to: 'uploads/[path][name].[ext]',
 
         // if versioning is enabled, add the file hash too
-        to: 'images/[path][name].[hash:8].[ext]',
+        // to: 'uploads/[path][name].[hash:8].[ext]',
 
         // only copy files matching this pattern
         //pattern: /\.(png|jpg|jpeg)$/

@@ -39,20 +39,21 @@ class ApplicationRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Application[] Returns an array of Application objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return Application[] Returns an array of Application objects
+    */
+   public function findByRecruiter($recruiter): array
+   {
+        return $this->createQueryBuilder('a')
+            // ->select('u.id, mod.id as id_module, mod.name as module, mod.slug, m.is_activated')
+            ->innerJoin('a.jobOffer', 'j')
+            ->where('j.recruiter = :recruiter')
+            ->andWhere('a.isActivated = true ')
+            ->setParameter('recruiter', $recruiter)
+            ->getQuery()
+            ->getResult();
+            ;
+   }
 
 //    public function findOneBySomeField($value): ?Application
 //    {

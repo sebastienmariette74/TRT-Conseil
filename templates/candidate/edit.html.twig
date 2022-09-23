@@ -4,20 +4,8 @@
 
 {% block body %}
 <h1>Bienvenue {{ app.user.email }}</h1>
-{# {{ dump(app.user) }} #}
 
-<a href="{{ path('app_candidate_job_offers') }}">Voir les annonces</a> <br>
-<a href="{{ path('app_candidate_my_applications') }}">Voir mes candidatures</a>
-
-{# <div class="card" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">Profil</h5>
-        <p class="card-text">{{ app.user.email }}</p>
-        <p class="card-text">{{ app.user.firstname }}</p>
-        <p class="card-text">{{ app.user.lastname }}</p>
-        <a href="#" class="btn btn-primary">MODIFIER</a>
-    </div>
-</div> #}
+{% include "candidate/_main.html.twig" %}
 
 <div>
     {{ form_start(form) }}
@@ -25,7 +13,11 @@
     {{ form_row(form.firstname) }}
     {{ form_row(form.lastname) }}
     {{ form_row(form.cv) }}
-    <button type="submit" class="btn btn-primary mt-3">Modifier</button>
+    <div >
+
+        {{ form_row(form.cvFile) }}
+    </div>
+    <button type="submit" class="btn btn-sm btn-primary mt-3">Modifier</button>
     {{ form_end(form) }}
 </div>
 
