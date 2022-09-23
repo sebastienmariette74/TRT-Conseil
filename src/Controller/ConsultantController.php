@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Application;
 use App\Repository\ApplicationRepository;
 use App\Repository\JobOfferRepository;
 use App\Repository\UserRepository;
@@ -115,12 +116,12 @@ class ConsultantController extends AbstractController
     }
 
     #[Route('/candidatures/activer-candidature/{id}', name: '_activate_application')]
-    public function activateApplication($id, SendMailService $mail): Response
+    public function activateApplication(Application $application, SendMailService $mail): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         } else {
-            $application = $this->applicationRepo->findOneBy(['id' => $id]);
+
             $emailRecruiter = $application->getJobOffer()->getRecruiter()->getEmail();
 
             $application
@@ -136,6 +137,19 @@ class ConsultantController extends AbstractController
                 compact('application'),
                 $application->getCandidate()->getCv()
             );
+
+            return $this->redirectToRoute('app_consultant_applications');
+        }
+    }
+    #[Route('/candidatures/supprimer-candidature/{id}', name: '_remove_application')]
+    public function removeApplication(Application $application, ApplicationRepository $applicationRepo): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        } else {
+
+            $applicationRepo->remove($application);
+            $this->em->flush();
 
             return $this->redirectToRoute('app_consultant_applications');
         }

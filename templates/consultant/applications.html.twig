@@ -25,9 +25,15 @@
                 <td>{{ application.jobOffer.title}}</td>
                 <td>{{ application.jobOffer.city}}</td>
                 <td>{{ application.jobOffer.description | raw }}</td>
-                <td>{{ application.candidate.email}}</td>
-                <td><a href="{{ path('app_consultant_activate_application' , { id : application.id}) }}" type="button" class="btn btn-primary">ACTIVER</a></td>  
-
+                <td>
+                    {{ application.candidate.firstname}} {{ application.candidate.lastname | upper }} <br>
+                    {{ application.candidate.email}} <br>
+                    <a href="{{ asset('build/uploads/' ~ application.candidate.cv ) }} " target="_blank">Voir le CV</a>
+                </td>
+                <td>
+                    <a href="{{ path('app_consultant_activate_application' , { id : application.id}) }}" type="button" class="btn btn-sm btn-primary">ACTIVER</a> 
+                    <a href="{{ path('app_consultant_remove_application' , { id : application.id}) }}" type="button" class="btn btn-sm btn-danger">SUPPRIMER</a>
+                </td>  
             </tr>
             {% endfor %}
 

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Application;
+use App\Entity\JobOffer;
 use App\Form\CandidateType;
 use App\Repository\ApplicationRepository;
 use App\Repository\JobOfferRepository;
@@ -100,18 +101,23 @@ class CandidateController extends AbstractController
     }
 
     #[Route('/candidature/{id}', name: '_apply')]
-    public function apply($id): Response
+    public function apply(JobOffer $jobOffer): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         } else {
-            $jobOffer = $this->jobOfferRepo->findOneBy(['id' => $id]);
-            $application = new Application();
-            $application = $application->setJobOffer($jobOffer);
-            $application = $application->setCandidate($this->getUser());
+            if($this->getUser()->getCv()){
+                $application = new Application();
+                $application = $application->setJobOffer($jobOffer);
+                $application = $application->setCandidate($this->getUser());
+    
+                $this->em->persist($application);
+                $this->em->flush();    
 
-            $this->em->persist($application);
-            $this->em->flush();
+                $this->addFlash("success", "Candidature envoyée.");
+            } else {
+                $this->addFlash('danger', 'Vous devez avoir un CV dans votre profil pour pouvoir postuler à une annonce.');
+            }
 
             return $this->redirectToRoute('app_candidate_job_offers');
         }
@@ -123,19 +129,22 @@ class CandidateController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         } else {
-            $applications = $this->applicationRepo->findBy(['Candidate' => $this->getUser()]);
+            $applications = $this->applicationRepo->findBy(['Candidate' => $this->getUser(), 'isActivated' => true]);
+            // dd($applications);
+            if(!$applications){
+                $this->addFlash("info", "Si vous ne voyez pas vos candidatures, soit elles n'ont pas encore été activées, soit l'annonce n'existe plus.");
+            }
 
             return $this->render('candidate/show_my_applications.html.twig', compact('applications'));
         }
     }
 
     #[Route('/mes-candidatures/supprimer/{id}', name: '_application_remove')]
-    public function remove($id): Response
+    public function remove(JobOffer $jobOffer): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         } else {
-            $jobOffer = $this->jobOfferRepo->findOneBy(['id' => $id]);
 
             $application = $this->applicationRepo->findOneBy([
                 'Candidate' => $this->getUser(),
