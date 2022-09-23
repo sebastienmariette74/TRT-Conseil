@@ -6,7 +6,7 @@
 
 <h1>Bienvenue {{ app.user ? app.user.email : "" }}</h1>
 
-{% include "recruiter/_nav.html.twig" %}
+{% include "recruiter/_main.html.twig" %}
 
 <div>
     <table class="table">
@@ -27,7 +27,7 @@
                 <td>
                     <div class="form-check">
                         {% set checked = jobOffer.isActivated ? 'checked' : ''%}                        
-                        <input class="form-check-input" type="checkbox" value="" {{ checked }} disabled
+                        <input class="form-check-input check-job-offer" type="checkbox" value="" {{ checked }}
                         >
                     </div>
                 </td>

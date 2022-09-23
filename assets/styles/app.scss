@@ -2,7 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 
 @import "./pages/home";
-@import "./pages/consultant";
+@import "./pages/consultant/main";
+@import "./pages/recruiter/jobOffers";
 
 body {
     font-family: 'Lato', sans-serif;

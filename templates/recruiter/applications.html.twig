@@ -6,7 +6,7 @@
 
 <h1>Bienvenue {{ app.user.email }}</h1>
 
-{% include "recruiter/_nav.html.twig" %}
+{% include "recruiter/_main.html.twig" %}
 
 <div>
     <table class="table">
@@ -22,16 +22,18 @@
         </thead>
         <tbody>
             {% for application in applications %}
-            {# {% if not application.isActivated %} #}
             <tr>
                 <td>{{ application.jobOffer.title}}</td>
                 <td>{{ application.jobOffer.city}}</td>
                 <td>{{ application.jobOffer.description | raw }}</td>
-                <td>{{ application.candidate.email}}</td>
+                <td>
+                    {{ application.candidate.firstname }} {{ application.candidate.lastname | upper}} <br>
+                    {{ application.candidate.email }} <br>
+                    <a href="{{ asset('build/uploads/' ~ application.candidate.cv ) }} " target="_blank">Voir le CV</a>
+                </td>
                 {# <td><a href="{{ path('app_consultant_activate_application' , { email : application.candidate.email, id : application.jobOffer.id}) }}" type="button" class="btn btn-primary">ACTIVER</a></td>   #}
 
             </tr>
-            {# {% endif %} #}
             {% endfor %}
 
         </tbody>

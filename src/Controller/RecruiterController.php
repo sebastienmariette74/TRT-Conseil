@@ -22,13 +22,30 @@ IsGranted("ROLE_RECRUITER")
 ]
 class RecruiterController extends AbstractController
 {
+    public function __construct(
+        private JobOfferRepository $jobOfferRepo,
+        private ApplicationRepository $applicationRepo
+    )
+    {
+        
+    }
+    
     #[Route('/', name: '')]
     public function index(): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         } else {
-            return $this->render('recruiter/index.html.twig');
+            $jobOffers = $this->jobOfferRepo->findBy([
+                'recruiter' => $this->getUser(), 
+                // 'isActivated' => true
+            ]);
+            $applications = $this->applicationRepo->findBy([
+                'jobOffer' => $this->getUser(),
+                'isActivated' => true
+            ]);
+
+            return $this->render('recruiter/index.html.twig', compact('jobOffers', 'applications'));
         }
     }
 
@@ -45,10 +62,21 @@ class RecruiterController extends AbstractController
 
                 $em->flush();
 
+                $this->addFlash('success', "Profil modifié.");
+
                 return $this->redirectToRoute('app_recruiter');
             }
 
-            return $this->renderForm('recruiter/edit.html.twig', compact('form'));
+            $jobOffers = $this->jobOfferRepo->findBy([
+                'recruiter' => $this->getUser(), 
+                // 'isActivated' => true
+            ]);
+            $applications = $this->applicationRepo->findBy([
+                'jobOffer' => $this->getUser(),
+                'isActivated' => true
+            ]);
+
+            return $this->renderForm('recruiter/edit.html.twig', compact('form', 'jobOffers', 'applications'));
         }
     }
 
@@ -75,23 +103,40 @@ class RecruiterController extends AbstractController
                 $entityManager->persist($jobOffer);
                 $entityManager->flush();
 
+                $this->addFlash('success', "Offre d'emploi envoyée.");
+
                 return $this->redirectToRoute("app_recruiter");
             }
 
-            return $this->renderForm('recruiter/post.html.twig', compact('form'));
+            $jobOffers = $this->jobOfferRepo->findBy([
+                'recruiter' => $this->getUser()
+            ]);
+            $applications = $this->applicationRepo->findBy([
+                'jobOffer' => $this->getUser(),
+                'isActivated' => true
+            ]);
+
+            return $this->renderForm('recruiter/post.html.twig', compact('form', 'jobOffers', 'applications'));
         }
     }
 
     #[Route('/mes-annonces', name: '_job_offers')]
     public function showMyJobOffers(
-        JobOfferRepository $jobOfferRepo
     ): Response {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         } else {
-            $jobOffers = $jobOfferRepo->findBy(['recruiter' => $this->getUser()]);
 
-            return $this->render('recruiter/jobOffers.html.twig', compact('jobOffers'));
+            $jobOffers = $this->jobOfferRepo->findBy([
+                'recruiter' => $this->getUser(), 
+                // 'isActivated' => true
+            ]);
+            $applications = $this->applicationRepo->findBy([
+                'jobOffer' => $this->getUser(),
+                'isActivated' => true
+            ]);
+
+            return $this->render('recruiter/jobOffers.html.twig', compact('jobOffers', 'applications'));
         }
     }
 
@@ -102,9 +147,17 @@ class RecruiterController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         } else {
-            $applications = $applicationRepo->findByRecruiter($this->getUser());
 
-            return $this->render('recruiter/applications.html.twig', compact('applications'));
+            $jobOffers = $this->jobOfferRepo->findBy([
+                'recruiter' => $this->getUser(), 
+                // 'isActivated' => true
+            ]);
+            $applications = $this->applicationRepo->findBy([
+                'jobOffer' => $this->getUser(),
+                'isActivated' => true
+            ]);
+
+            return $this->render('recruiter/applications.html.twig', compact('jobOffers', 'applications'));
         }
     }
 }

@@ -5,7 +5,8 @@
 {% block body %}
 <h1>Bienvenue {{ app.user.email }}</h1>
 
-{% include "recruiter/_nav.html.twig" %}
+{% include "recruiter/_main.html.twig" %}
+{% include "_partials/_flash.html.twig" %}
 
 <div class="card" style="width: 18rem;">
     <div class="card-body">
