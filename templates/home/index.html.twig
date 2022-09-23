@@ -4,9 +4,26 @@
 
 {% block body %}
 
+{% include "_partials/_flash.html.twig" %}
+
+{% if app.user %}
+{% if not app.user.isVerified or not app.user.isActivated %}
+<div class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="alert-message">
+        Votre compte n'est pas encore activé. <br>
+        {% if not app.user.isVerified %}Pensez à activer le lien envoyé dans votre mail d'inscription. {% endif %} <br>
+        {% if app.user.isVerified and not app.user.isActivated %}Il sera activé dans un délai de 24 heures.{% endif %}
+        
+    </div>
+</div>
+{% endif %}
+{% endif %}
+
+
 <h1>Bienvenue</h1>
 <p>TRT Conseil est une agence de recrutement spécialisée dans l'hôtellerie et la restauration. </p>
-<p>Si vous êtes en recherche d'emploi ou bien si vous recherchez des employés, vous avez accès à des centaines d'offre et demande d'emplois.</p>
-<p>Vous avez accès à un grand nombre d'offres et demandes d'emploi.  </p>
+<p>Si vous êtes en recherche d'emploi ou bien si vous recherchez des employés, vous avez accès à des centaines d'offre
+    et demande d'emplois.</p>
 <p>Pour pouvoir postuler ou publier des annonces, vous devrez avoir créé un compte.</p>
 {% endblock %}

@@ -34,7 +34,17 @@ class CandidateController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         } else {
-            return $this->render('candidate/index.html.twig');
+
+            $applications = $this->applicationRepo->findBy([
+                'Candidate' => $this->getUser(),
+                'isActivated' => true
+            ]);
+
+            $jobOffers = $this->jobOfferRepo->findBy([
+                'isActivated' => true
+            ]);
+
+            return $this->render('candidate/index.html.twig', compact('applications', 'jobOffers'));
         }
     }
 
@@ -61,10 +71,21 @@ class CandidateController extends AbstractController
                 $this->em->persist($user);
                 $this->em->flush();
 
+                $this->addFlash('success', "Profil modifié.");
+
                 return $this->redirectToRoute('app_candidate');
             }
 
-            return $this->renderForm('candidate/edit.html.twig', compact('form'));
+            $applications = $this->applicationRepo->findBy([
+                'Candidate' => $this->getUser(),
+                'isActivated' => true
+            ]);
+
+            $jobOffers = $this->jobOfferRepo->findBy([
+                'isActivated' => true
+            ]);
+
+            return $this->renderForm('candidate/edit.html.twig', compact('form', 'jobOffers', 'applications'));
         }
     }
 
@@ -87,7 +108,9 @@ class CandidateController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         } else {
-            $jobOffers = $this->jobOfferRepo->findAll();
+            $jobOffers = $this->jobOfferRepo->findBy([
+                'isActivated' => true
+            ]);
 
             $jOId = [];
             $applications = $this->applicationRepo->findBy(['Candidate' => $this->getUser()]);
@@ -129,13 +152,19 @@ class CandidateController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         } else {
-            $applications = $this->applicationRepo->findBy(['Candidate' => $this->getUser(), 'isActivated' => true]);
-            // dd($applications);
+            $applications = $this->applicationRepo->findBy([
+                'Candidate' => $this->getUser(), 
+                'isActivated' => true]);
+
+            $jobOffers = $this->jobOfferRepo->findBy([
+                'isActivated' => true
+            ]);
+            
             if(!$applications){
                 $this->addFlash("info", "Si vous ne voyez pas vos candidatures, soit elles n'ont pas encore été activées, soit l'annonce n'existe plus.");
             }
 
-            return $this->render('candidate/show_my_applications.html.twig', compact('applications'));
+            return $this->render('candidate/applications.html.twig', compact('applications', 'jobOffers'));
         }
     }
 

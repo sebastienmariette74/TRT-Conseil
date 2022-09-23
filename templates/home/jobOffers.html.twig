@@ -1,13 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recruteur{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
 
-{% include "candidate/_main.html.twig" %}
-{% include "_partials/_flash.html.twig" %}
+<h1>Offres d'emploi</h1>
 
-{% if jobOffers %}
 <div>
     <table class="table">
         <thead>
@@ -25,16 +23,11 @@
                 <td>{{ jobOffer.title }}</td>
                 <td>{{ jobOffer.city }}</td>
                 <td>{{ jobOffer.description | raw }}</td>
-                <td>
-                    <a href="{{ path('app_candidate_apply', { id : jobOffer.id }) }}" type="button"
-                        class="btn btn-sm text-uppercase {{ jobOffer.id in jOId ? 'disabled btn-secondary' : 'btn-primary' }}">{{
-                        jobOffer.id in jOId ? 'a postulé' : 'POSTULER' }}</a>
-                </td>
+                <td><a href="{{ app.user ? path('app_candidate_apply', { id : jobOffer.id }) : path('app_register' , {'type' : 'candidat'}) }}" type="button" class="btn btn-sm btn-primary" >POSTULER</a></td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
-{% endif %}
 
 {% endblock %}
