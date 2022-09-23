@@ -17,15 +17,11 @@ class CandidateType extends AbstractType
     {
         $builder
             ->add('email')
-            // ->add('roles')
-            // ->add('password')
-            // ->add('isVerified')
-            // ->add('isActivated')
             ->add('firstname')
             ->add('lastname')
-            // ->add('cv')
-            ->add('cv', FileType::class, [
-                'label' => 'CV (fichier PDF)',
+            ->add('cv')
+            ->add('cvFile', FileType::class, [
+                'label' => 'CV (fichier PDF - taille maximale : 1024 Ko)',
 
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,

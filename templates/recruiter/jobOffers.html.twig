@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<h1>Bienvenue {{ app.user.email }}</h1>
+<h1>Bienvenue {{ app.user ? app.user.email : "" }}</h1>
 
 {% include "recruiter/_nav.html.twig" %}
 

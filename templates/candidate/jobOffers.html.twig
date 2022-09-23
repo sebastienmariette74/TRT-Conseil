@@ -5,8 +5,7 @@
 {% block body %}
 <h1>Bienvenue {{ app.user.email }}</h1>
 
-<a href="{{ path('app_candidate_job_offers') }}">Voir les annonces</a> <br>
-<a href="{{ path('app_candidate_my_applications') }}">Voir mes candidatures</a>
+{% include "candidate/_main.html.twig" %}
 
 <div>
     <table class="table">

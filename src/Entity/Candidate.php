@@ -6,6 +6,8 @@ use App\Repository\CandidateRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+
 
 #[ORM\Entity(repositoryClass: CandidateRepository::class)]
 class Candidate extends User
@@ -18,11 +20,14 @@ class Candidate extends User
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstname = null;
 
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $cv = null;
+
+    // private ?File $cvFile = null;
 
     #[ORM\OneToMany(mappedBy: 'Candidate', targetEntity: Application::class, orphanRemoval: true)]
     private Collection $applications;
@@ -102,6 +107,22 @@ class Candidate extends User
 
         return $this;
     }
+
+    // public function setCvFile(?File $cvFile = null): void
+    // {
+    //     $this->cvFile = $cvFile;
+
+    //     if (null !== $cvFile) {
+    //         // It is required that at least one field changes if you are using doctrine
+    //         // otherwise the event listeners won't be called and the file is lost
+    //         $this->updatedAt = new \DateTimeImmutable();
+    //     }
+    // }
+
+    // public function getCvFile(): ?File
+    // {
+    //     return $this->cvFile;
+    // }
 
     // public function serialize()
     // {

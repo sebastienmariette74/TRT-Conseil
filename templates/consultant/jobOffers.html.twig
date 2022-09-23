@@ -21,7 +21,6 @@
         </thead>
         <tbody>
             {% for jobOffer in jobOffers %}
-            {% if not jobOffer.isActivated %}
             <tr>
                 <td>{{ jobOffer.title }}</td>
                 <td>{{ jobOffer.city }}</td>
@@ -29,8 +28,7 @@
                 <td>{{ jobOffer.recruiter.name }}</td>  
                 <td><a href="{{ path('app_consultant_activate_job_offer' , {id: jobOffer.id}) }}" type="button" class="btn btn-primary btn-sm">ACTIVER</a></td>  
                 {# <td><a href="{{ path('app_home') }}" type="button" class="btn btn-primary btn-sm">ACTIVER</a></td>   #}
-            </tr>
-            {% endif %}            
+            </tr>     
             {% endfor %}
         </tbody>
     </table>

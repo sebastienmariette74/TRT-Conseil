@@ -1,0 +1,35 @@
+<p>Bonjour, un candidat vient de postuler à l'une de vos annonces.</p>
+<p>Veuillez trouver en pièce jointe son CV.</p>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Intitulé</th>
+                <th scope="col">Ville</th>
+                <th scope="col">Description</th>
+                <th scope="col">Candidat</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ application.jobOffer.title }}</td>
+                <td>{{ application.jobOffer.city }}</td>
+                <td>{{ application.jobOffer.description | raw}}</td>
+                <td>
+                    {{ application.candidate.firstname }} <br>
+                    {{ application.candidate.lastname }} <br>
+                    {{ application.candidate.email }} <br>
+                </td>
+            </tr>     
+        </tbody>
+    </table>
+</div>
+
+<p><a href="{{ absolute_url(path('app_recruiter_job_offers')) }}">Voir mes annonces</a> - <a href="{{ absolute_url(path('app_recruiter_applications')) }}">Voir les candidatures</a></p>
+<p>
+    Cordialement.
+</p>
+<p>
+    <strong>TRT Conseil.</strong>
+</p>
