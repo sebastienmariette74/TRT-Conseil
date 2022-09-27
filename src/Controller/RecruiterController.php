@@ -24,7 +24,8 @@ class RecruiterController extends AbstractController
 {
     public function __construct(
         private JobOfferRepository $jobOfferRepo,
-        private ApplicationRepository $applicationRepo
+        private ApplicationRepository $applicationRepo,
+        private EntityManagerInterface $em
     )
     {
         
@@ -37,8 +38,8 @@ class RecruiterController extends AbstractController
             return $this->redirectToRoute('app_login');
         } else {
             $jobOffers = $this->jobOfferRepo->findBy([
-                'recruiter' => $this->getUser(), 
-                // 'isActivated' => true
+                'recruiter' => $this->getUser(),
+                'isActivated' => true
             ]);
             $applications = $this->applicationRepo->findBy([
                 'jobOffer' => $this->getUser(),
@@ -68,8 +69,8 @@ class RecruiterController extends AbstractController
             }
 
             $jobOffers = $this->jobOfferRepo->findBy([
-                'recruiter' => $this->getUser(), 
-                // 'isActivated' => true
+                'recruiter' => $this->getUser(),
+                'isActivated' => true
             ]);
             $applications = $this->applicationRepo->findBy([
                 'jobOffer' => $this->getUser(),
@@ -103,13 +104,14 @@ class RecruiterController extends AbstractController
                 $entityManager->persist($jobOffer);
                 $entityManager->flush();
 
-                $this->addFlash('success', "Offre d'emploi envoyée.");
+                $this->addFlash('success', "Offre d'emploi envoyée. En attente de validation.");
 
                 return $this->redirectToRoute("app_recruiter");
             }
 
             $jobOffers = $this->jobOfferRepo->findBy([
-                'recruiter' => $this->getUser()
+                'recruiter' => $this->getUser(),
+                'isActivated' => true
             ]);
             $applications = $this->applicationRepo->findBy([
                 'jobOffer' => $this->getUser(),
@@ -128,8 +130,8 @@ class RecruiterController extends AbstractController
         } else {
 
             $jobOffers = $this->jobOfferRepo->findBy([
-                'recruiter' => $this->getUser(), 
-                // 'isActivated' => true
+                'recruiter' => $this->getUser(),
+                'isActivated' => true
             ]);
             $applications = $this->applicationRepo->findBy([
                 'jobOffer' => $this->getUser(),
@@ -137,6 +139,76 @@ class RecruiterController extends AbstractController
             ]);
 
             return $this->render('recruiter/jobOffers.html.twig', compact('jobOffers', 'applications'));
+        }
+    }
+
+    #[Route('/mes-annonces/annonce/{id}', name: '_edit_job_offer')]
+    public function editJobOffer( Request $request, $id
+    ): Response {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        } else {
+
+            $jobOffer = $this->jobOfferRepo->findOneBy([
+                'id' => $id,
+                'recruiter' => $this->getUser()
+            ]);
+
+            $form = $this->createForm(JobOfferType::class, $jobOffer);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $jobOffer->setIsActivated(false);
+
+                $this->em->flush();
+
+                $this->addFlash('success', "Annonce modifiée. En attente de validation.");
+
+                return $this->redirectToRoute('app_recruiter_job_offers');
+            }
+
+            $jobOffers = $this->jobOfferRepo->findBy([
+                'recruiter' => $this->getUser(),
+                'isActivated' => true
+            ]);
+            $applications = $this->applicationRepo->findBy([
+                'jobOffer' => $this->getUser(),
+                'isActivated' => true
+            ]);
+
+            return $this->renderForm('recruiter/edit_job_offer.html.twig', compact('form', 'jobOffers', 'applications'));
+        }
+    }
+
+    #[Route('/mes-annonces/annonce/{id}/details', name: '_job_offer_details')]
+    public function showJobOffer(JobOfferRepository $jobOfferRepo, $id, ApplicationRepository $applicationRepo): Response
+    {
+
+        $jobOffer = $jobOfferRepo->findOneBy(['id' => $id]);
+
+        $jobOffers = $this->jobOfferRepo->findBy([
+            'recruiter' => $this->getUser(),
+            'isActivated' => true
+        ]);
+        $applications = $this->applicationRepo->findBy([
+            'jobOffer' => $this->getUser(),
+            'isActivated' => true
+        ]);
+        return $this->render('recruiter/jobOffer.html.twig', compact('jobOffer', 'jobOffers', 'applications'));
+    }
+
+    #[Route('/mes-annonces/{id}', name: '_remove_job_offer')]
+    public function removeJobOffer($id): Response {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        } else {
+
+            $jobOffer = $this->jobOfferRepo->findOneBy(['id' => $id]);
+            $this->jobOfferRepo->remove($jobOffer);
+            $this->em->flush();
+
+            return $this->redirectToRoute('app_recruiter_job_offers');
         }
     }
 
@@ -149,8 +221,8 @@ class RecruiterController extends AbstractController
         } else {
 
             $jobOffers = $this->jobOfferRepo->findBy([
-                'recruiter' => $this->getUser(), 
-                // 'isActivated' => true
+                'recruiter' => $this->getUser(),
+                'isActivated' => true
             ]);
             $applications = $this->applicationRepo->findBy([
                 'jobOffer' => $this->getUser(),

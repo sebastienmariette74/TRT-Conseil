@@ -1,10 +1,20 @@
 @import "~bootstrap/scss/bootstrap";
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 
-@import "./pages/home";
-@import "./pages/consultant/main";
+@import "./pages/login/login";
+@import "./pages/home/home";
+@import "./pages/consultant/index";
 @import "./pages/recruiter/jobOffers";
+@import "./layouts/main";
+@import "./layouts/navbar";
+@import "./layouts/section";
+@import "./components/bubble";
+@import "./components/alert";
 
 body {
     font-family: 'Lato', sans-serif;
+}
+
+* {
+    // border: 1px solid black;
 }

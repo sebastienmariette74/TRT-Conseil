@@ -1,0 +1,14 @@
+<div class="d-flex flex-column flex-sm-row justify-content-around">
+    <div>
+        <a href="{{ path('app_consultant_accounts') }}">comptes utilisateur</a> <span class="bubble bubble-blue">{{
+            accounts|length }}</span>
+    </div>
+    <div>
+        <a href="{{ path('app_consultant_job_offers') }}">offres d'emploi</a> <span class="bubble bubble-blue">{{
+            jobOffers|length }}</span>
+    </div>
+    <div>
+        <a href="{{ path('app_consultant_applications') }}">candidatures</a> <span class="bubble bubble-blue">{{
+            applications|length }}</span>
+    </div>
+</div>

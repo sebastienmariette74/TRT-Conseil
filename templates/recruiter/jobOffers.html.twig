@@ -1,39 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recruteur{% endblock %}
+{% block title %}Recruteur - Mes Offres d'Emploi{% endblock %}
 
 {% block body %}
 
-{% include "recruiter/_main.html.twig" %}
+{% include "_partials/_main.html.twig" %}
 
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Intitulé</th>
-                <th scope="col">Ville</th>
-                <th scope="col">Description</th>
-                <th scope="col">Annonce active</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for jobOffer in jobOffers %}
-            <tr>
-                <td>{{ jobOffer.title }}</td>
-                <td>{{ jobOffer.city }}</td>
-                <td>{{ jobOffer.description | raw}}</td>
-                <td>
-                    <div class="form-check">
-                        {% set checked = jobOffer.isActivated ? 'checked' : ''%}                        
-                        <input class="form-check-input check-job-offer" type="checkbox" value="" {{ checked }}
-                        >
-                    </div>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-</div>
+<section>
+    {% include "_partials/_flash.html.twig" %}
+    <h1>Mes offres d'emploi</h1>
+    <div class="jobOffers">
+        {% for jobOffer in jobOffers %}
+        <div class="jobOffer">
+            <p class="title mb-0">{{ jobOffer.title }}</p>
+            <div class="description abstract">{{ jobOffer.description | raw}}</div>
+            <p><a href="{{ path('app_recruiter_job_offer_details', {id : jobOffer.id}) }}">lire la suite</a></p>
+            <div class="d-flex">
+                <span>{{ jobOffer.city }}</span>
+                <div class="ms-auto">
+                    <a href="{{ path('app_recruiter_edit_job_offer', {id : jobOffer.id} ) }}"
+                        class="btn btn-sm btn-warning ">MODIFIER</a>
+                    <a href="{{ path('app_recruiter_remove_job_offer', {id : jobOffer.id} ) }}"
+                        class="btn btn-sm btn-danger ">SUPPRIMER</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% include "recruiter/_links.html.twig" %}
+    </div>
+</section>
 
 {% endblock %}

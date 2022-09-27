@@ -1,18 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recruteur{% endblock %}
+{% block title %}Recruteur - Publier Une Offre d'Emploi{% endblock %}
 
 {% block body %}
 
-{% include "recruiter/_main.html.twig" %}
+{% include "_partials/_main.html.twig" %}
 
-<div>
-    {{ form_start(form) }}
-    {{ form_row(form.title) }}
-    {{ form_row(form.city) }}
-    {{ form_row(form.description) }}
-    <button type="submit" class="btn btn-primary" >Publier</button>
-    {{ form_end(form) }}
-</div>
+<section>
+    <div class="post">
+        <h1>Publier une annonce</h1>
+        <div>
+            {{ form_start(form) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.city) }}
+            {{ form_row(form.description) }}
+            <button type="submit" class="btn btn-sm btn-primary">Publier</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    {% include "recruiter/_links.html.twig" %}
+</section>
 
 {% endblock %}

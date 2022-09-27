@@ -5,40 +5,38 @@
 {% block body %}
 {# <h1>Bienvenue {{ app.user.email }}</h1> #}
 
-{% include "consultant/_main.html.twig" %}
-{% include "_partials/_flash.html.twig" %}
+{% include "_partials/_main.html.twig" %}
 
-{% if accounts %}
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Identifiant</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for account in accounts %}
-            <tr>
-                <td>{{ account.email }}</td>
-                <td><a href="{{ path('app_consultant_verif_account', { id : account.id }) }}" type="button"
-                        class="btn btn-primary btn-sm">VALIDER</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-{% else %}
-<div class="alert alert-info" role="alert">
-    <div class="alert-message">
-        Aucun compte à valider.
+<section>
+    {% include "_partials/_flash.html.twig" %}
+
+    {% if accounts %}
+    <h1>Comptes à valider</h1>
+    <div class="accounts">
+
+        {% for account in accounts %}
+        <div class="account row">
+            <div class="col-8 text-center" >
+                {{ account.email }}
+            </div>
+            <div class="col-4">
+                <a href="{{ path('app_consultant_verif_account', { id : account.id }) }}" type="button"
+                    class="btn btn-primary btn-sm">VALIDER</a>
+            </div>
+        </div>
+        {% endfor %}
+        {% include "consultant/_links.html.twig" %}
     </div>
-</div>
-{% endif %}
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        <div class="alert-message">
+            Aucun compte à valider.
+        </div>
+    </div>
+    {% include "consultant/_links.html.twig" %}
+    {% endif %}
+</section>
 
 
-{% for account in accounts %}
-
-{% endfor %}
 
 {% endblock %}

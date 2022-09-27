@@ -3,8 +3,30 @@
 {% block title %}Consultant{% endblock %}
 
 {% block body %}
-{# <h1>Bienvenue {{ app.user.email }}</h1> #}
+{% include "_partials/_flash.html.twig" %}
 
-{% include "consultant/_main.html.twig" %}
+{% include "_partials/_main.html.twig" %}
+
+<section>
+    <div class="home">
+        <h1>Bienvenue</h1>
+
+        <p>Vous voulez valider :</p>
+        <ul>
+            <li>
+                <a href="{{ path('app_consultant_accounts') }}">des comptes utilisateur</a> <span class="bubble bubble-blue">{{
+                    accounts|length }}</span>
+            </li>
+            <li>
+                <a href="{{ path('app_consultant_job_offers') }}">des offres d'emploi</a> <span class="bubble bubble-blue">{{
+                    jobOffers|length }}</span>
+            </li>
+            <li>
+                <a href="{{ path('app_consultant_applications') }}">des candidatures</a> <span class="bubble bubble-blue">{{
+                    applications|length }}</span>
+            </li>
+        </ul>
+    </div>
+</section>
 
 {% endblock %}

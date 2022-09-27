@@ -2,27 +2,28 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\JobOffer;
+use App\Entity\Administrator;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-
-class JobOfferCrudController extends AbstractCrudController
+class AdministratorCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return JobOffer::class;
+        return Administrator::class;
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInPlural('Offres d\'emploi')
-            ->setEntityLabelInSingular('Offre d\'emploi')
-        ;
+            ->setEntityLabelInPlural('Administrateurs')
+            ->setEntityLabelInSingular('administrateur')
+            ;
     }
 
     
@@ -31,9 +32,10 @@ class JobOfferCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
-            TextField::new('title'),
-            TextField::new('city'),
-            TextEditorField::new('description'),
+            EmailField::new('email')
+                ->setFormTypeOption('disabled', 'disabled'),
+            TextField::new('password'),
+            ArrayField::new('roles')
         ];
     }
     

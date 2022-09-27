@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ApplicationRepository;
 use App\Repository\JobOfferRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,5 +24,7 @@ class HomeController extends AbstractController
         $jobOffers = $jobOfferRepo->findBy(['isActivated' => true]);
         return $this->render('home/jobOffers.html.twig', compact('jobOffers'));
     }
+
+    
     
 }

@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid d-flex ">
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid d-flex navbar__style">
         <a class="navbar-brand" href="
         {{ 
             is_granted('ROLE_CANDIDATE') ? path('app_candidate') :
@@ -7,16 +7,24 @@
             is_granted('ROLE_CONSULTANT') ? path('app_consultant')
         }}
         ">TRT Conseil</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+        {# data-bs-target="#navbarSupportedContent" #}
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            {# <span class="navbar-toggler-icon"></span> #}
+            <img src="{{ asset('build/uploads/user-white.png') }}" alt="" class="img-fluid">
         </button>
-        <div class="collapse navbar-collapse ms-auto" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse ms-auto navbarSupportedContent" 
+        {# id="navbarSupportedContent" #}
+        >
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
+                {% if not app.user or (app.user and not app.user.isActivated) %}
+                {% if not app.user or is_granted('ROLE_CANDIDATE') %}
                 <li class="nav-item dropdown">
-                    <a class="nav-link {{ not app.user or is_granted('ROLE_CANDIDATE') ? 'dropdown-toggle' : "" }}" href="#" role="button" data-bs-toggle="dropdown" {{ app.user and
-                        not is_granted('ROLE_CANDIDATE') ? 'disabled' : "" }} aria-expanded="false">
+                    <a class="nav-link {{ not app.user or is_granted('ROLE_CANDIDATE') ? 'dropdown-toggle' : "" }}"
+                        href="#" role="button" data-bs-toggle="dropdown" {{ app.user and not
+                        is_granted('ROLE_CANDIDATE') ? 'disabled' : "" }} aria-expanded="false">
                         Candidat
                     </a>
                     <ul class="dropdown-menu">
@@ -28,9 +36,12 @@
                         {% endif %}
                     </ul>
                 </li>
+                {% endif %}
+
+                {% if not app.user or is_granted('ROLE_RECRUITER') %}
                 <li class="nav-item dropdown">
-                    <a class="nav-link {{ not app.user  ? 'dropdown-toggle' : "" }} " href="#" role="button" data-bs-toggle="dropdown" {{ app.user
-                        ? 'disabled' : "" }} aria-expanded="false">
+                    <a class="nav-link {{ not app.user  ? 'dropdown-toggle' : "" }} " href="#" role="button"
+                        data-bs-toggle="dropdown" {{ app.user ? 'disabled' : "" }} aria-expanded="false">
                         Recruteur
                     </a>
                     <ul class="dropdown-menu">
@@ -43,6 +54,8 @@
                         </li>
                     </ul>
                 </li>
+                {% endif %}
+
                 {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -54,6 +67,7 @@
                                 href="{{ path('app_register' , {'type' : 'consultant'}) }}">Enregistrer</a></li>
                     </ul>
                 </li>
+                {% endif %}
                 {% endif %}
 
                 {% if app.user %}

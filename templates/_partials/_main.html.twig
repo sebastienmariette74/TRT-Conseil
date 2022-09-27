@@ -1,0 +1,78 @@
+<main class="sidebar">
+
+    <button type="button" class="mainArrow">
+        <img src="{{ asset('build/uploads/arrow-right.png') }}" alt="" class="img-fluid arrow">
+    </button>
+
+    {% if is_granted('ROLE_CANDIDATE') %}
+    <h1>Bienvenue <br>  {{ (app.user.firstname and app.user.lastname) ? app.user.firstname|capitalize~"
+        "~app.user.lastname|upper : app.user.email }}</h1>
+
+    <nav>
+        <a href="{{ path('app_candidate') }}">Accueil</a> <br>
+        <a href="{{ path('app_candidate_job_offers') }}">Voir les annonces</a> <span class="bubble">{{ jobOffers|length
+            }}</span><br>
+        <a href="{{ path('app_candidate_my_applications') }}">Voir mes candidatures</a> <span class="bubble">{{
+            applications|length }}</span>
+    </nav>
+    {% endif %}
+
+    {% if is_granted('ROLE_RECRUITER') %}
+    <h1>Bienvenue <br> {{ app.user.name ? app.user.name|capitalize : app.user.email }}</h1>
+
+    <nav>
+        <a href="{{ path('app_recruiter') }}">Accueil</a> <br>
+        <a href="{{ path('app_recruiter_post') }}">Publier une annonce</a> <br>
+        <a href="{{ path('app_recruiter_job_offers') }}">Voir mes annonces</a> <span class="bubble">{{ jobOffers|length
+            }}</span><br>
+        <a href="{{ path('app_recruiter_applications') }}">Voir les candidatures</a> <span class="bubble">{{
+            applications|length }}</span>
+    </nav>
+    {% endif %}
+   
+    {% if is_granted('ROLE_CONSULTANT') %}
+    <h1>Bienvenue</h1>
+
+    <nav>
+        <a href="{{ path('app_consultant') }}">Accueil</a> <br>
+        <a href="{{ path('app_consultant_accounts') }}">Voir les comptes à valider</a> <span class="bubble">{{
+            accounts|length }}</span><br>
+        <a href="{{ path('app_consultant_job_offers') }}">Voir les annonces à valider</a> <span class="bubble">{{
+            jobOffers|length }}</span><br>
+        <a href="{{ path('app_consultant_applications') }}">Voir vos candidatures à valider</a> <span class="bubble">{{
+            applications|length }}</span>
+    </nav>
+    {% endif %}
+
+    {% if is_granted('ROLE_CANDIDATE') or is_granted('ROLE_RECRUITER') %}
+    <div class="card" >
+        <div class="card-body">
+            <h5 class="card-title mb-3">Profil</h5>
+            <hr>
+            <p class="card-text mb-1">Email</p>
+            <p class="text-center">{{ app.user.email }}</p>
+            {% if is_granted("ROLE_CANDIDATE") %}        
+                <p class="card-text mb-1">Prénom</p>
+                <p class="text-center">{{ app.user.firstname | capitalize }}</p>
+                <p class="card-text mb-1">Nom</p>
+                <p class="text-center">{{ app.user.lastname | upper }}</p>
+                <p class="card-text mb-1">CV</p>
+                {% if app.user.cv %}
+                    <div class="d-flex justify-content-center mb-3">
+                        <a href="{{ asset('build/uploads/' ~ app.user.cv ) }} " target="_blank">Voir le CV</a> &nbsp;
+                        <a href="{{ path('app_candidate_remove_cv') }}" class="remove-cv"> (supprimer)</a>
+                        {# <a href="{{ path('app_candidate_remove_cv') }}" type="button" class="btn btn-danger btn-sm">supprimer</a> #}
+                    </div>
+                {% endif %}
+                <a href="{{ path('app_candidate_edit') }}" class="btn btn-sm btn-primary modify ">MODIFIER</a>
+                
+                {% endif %}
+                {% if is_granted("ROLE_RECRUITER") %}        
+                <p class="card-text mb-1">Raison Sociale</p>
+                <p class="text-center mb-3">{{ app.user.name is defined and app.user.name is not null ? app.user.name | capitalize : "" }}</p>
+                <a href="{{ path('app_recruiter_edit') }}" class="btn btn-sm btn-warning modify text-black">MODIFIER</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</main>

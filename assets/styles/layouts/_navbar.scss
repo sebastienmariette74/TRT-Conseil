@@ -1,0 +1,53 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgb(37,37,41);
+    color: white;
+    height: 60px;
+    z-index: 2000;
+}
+
+.navbar-brand {
+    color: white;
+}
+
+.nav-link {
+    color: rgba(255,255,255, 0.5);
+    &:hover{
+        color : white;
+    }
+    &:focus {
+        color : white;
+    }
+}
+
+// .main-toggler {
+//     color: white;
+//     background-color: rgb(37,37,41);
+//     border: none;
+// }
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.navbar-toggler img {
+    height: 24px;
+}
+
+.navbarSupportedContent {
+    border-end-start-radius: 10px ;
+    z-index: 3000;
+}
+
+@media screen and (min-width: 820px){
+    // .main-toggler {
+    //     display: none;
+    // }
+
+    .mainArrow {
+        display: none;
+    }
+}
+

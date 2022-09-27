@@ -1,36 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Candidat{% endblock %}
+{% block title %}Candidat - Mes Candidatures{% endblock %}
 
 {% block body %}
 
-{% include "candidate/_main.html.twig" %}
-{% include "_partials/_flash.html.twig" %}
+{% include "_partials/_main.html.twig" %}
 
+<section>
 {% if applications %}
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Intitulé</th>
-                <th scope="col">Ville</th>
-                <th scope="col">Description</th>
-                <th scope="col"></th>
-
-            </tr>
-        </thead>
-        <tbody>
-            {% for application in applications %}
-            <tr>
-                <td>{{ application.jobOffer.title }}</td>
-                <td>{{ application.jobOffer.city }}</td>
-                <td>{{ application.jobOffer.description | raw }}</td>     
-                <td><a href="{{ path('app_candidate_application_remove', { id : application.jobOffer.id}) }}" type="button" class="btn btn-sm btn-danger">SUPPRIMER</a></td> 
-            </tr>       
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+    {% include "_partials/_flash.html.twig" %}
+    <h1>Mes candidatures</h1>
+    <div class="applications">
+        {% for application in applications %}
+        <div class="application">
+            <p class="title mb-0">{{ application.jobOffer.title }}</p>
+            <div class="description abstract">{{ application.jobOffer.description | raw }}</div>
+            <p><a href="{{ path('app_candidate_job_offer', {id : application.jobOffer.id}) }}" class="mb-3">lire la
+                    suite</a></p>
+            <div class="d-flex">
+                <span>{{ application.jobOffer.city }}</span> &nbsp;|&nbsp;
+                <a href="{{ path('app_candidate_job_offers') }}">offres d'emploi</a> &nbsp;|&nbsp;
+                <a href="{{ path('app_candidate_my_applications') }}">mes candidatures</a>
+                <a href="{{ path('app_candidate_application_remove', { id : application.jobOffer.id}) }}"
+                    style="height:31px" type="button" class="btn btn-sm btn-danger ms-auto">SUPPRIMER</a>
+            </div>
+        </div>
+        {% endfor %}
+        {% include "candidate/_links.html.twig" %}
+    </div>
+    {% else %}
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="alert-message">
+            Aucune candidature en cours.
+        </div>
+    </div>
+    {% include "candidate/_links.html.twig" %}
+</section>
 {% endif %}
-
 {% endblock %}

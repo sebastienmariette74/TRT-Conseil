@@ -1,0 +1,19 @@
+.homepage {
+    margin-top: 90px;
+    &_text {
+        width : 350px;
+        margin: auto;
+    }
+}
+
+@media screen and (min-width: 500px){
+    .homepage_text {
+        width: 450px;        
+    }
+}
+
+@media screen and (min-width: 930px){
+    .homepage_text {
+        width: 600px;        
+    }
+}

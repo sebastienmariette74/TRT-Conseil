@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Administrator;
 use App\Entity\Application;
 use App\Entity\Candidate;
 use App\Entity\Consultant;
@@ -30,9 +31,14 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Candidats', 'fas fa-list', Candidate::class);
-        yield MenuItem::linkToCrud('Recruteurs', 'fas fa-list', Recruiter::class);
-        yield MenuItem::linkToCrud('Consultants', 'fas fa-list', Consultant::class);
+
+        yield MenuItem::section('Utilisateurs');
+        yield MenuItem::linkToCrud('Administrateurs', 'fas fa-user', Administrator::class);
+        yield MenuItem::linkToCrud('Candidats', 'fas fa-user', Candidate::class);
+        yield MenuItem::linkToCrud('Recruteurs', 'fas fa-user', Recruiter::class);
+        yield MenuItem::linkToCrud('Consultants', 'fas fa-user', Consultant::class);
+
+        yield MenuItem::section('Annonces');
         yield MenuItem::linkToCrud('Offres d\'emploi', 'fas fa-list', JobOffer::class);
         yield MenuItem::linkToCrud('Candidatures', 'fas fa-list', Application::class);
     }

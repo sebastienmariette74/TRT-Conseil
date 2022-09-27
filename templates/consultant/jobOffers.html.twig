@@ -5,41 +5,40 @@
 {% block body %}
 {# <h1>Bienvenue {{ app.user.email }}</h1> #}
 
-{% include "consultant/_main.html.twig" %}
+{% include "_partials/_main.html.twig" %}
 
-{% if jobOffers %}
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Intitulé</th>
-                <th scope="col">Ville</th>
-                <th scope="col">Description</th>
-                <th scope="col">Recruteur</th>
-                <th scope="col"></th>
-
-            </tr>
-        </thead>
-        <tbody>
-            {% for jobOffer in jobOffers %}
-            <tr>
-                <td>{{ jobOffer.title }}</td>
-                <td>{{ jobOffer.city }}</td>
-                <td>{{ jobOffer.description | raw}}</td>  
-                <td>{{ jobOffer.recruiter.name }}</td>  
-                <td><a href="{{ path('app_consultant_activate_job_offer' , {id: jobOffer.id}) }}" type="button" class="btn btn-primary btn-sm">ACTIVER</a></td>  
-                {# <td><a href="{{ path('app_home') }}" type="button" class="btn btn-primary btn-sm">ACTIVER</a></td>   #}
-            </tr>     
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-{% else %}
-<div class="alert alert-info" role="alert">
-    <div class="alert-message">
-        Aucune annonce à valider.
+<section>
+    {% if jobOffers %}
+    <div class="jobOffers">
+        <h1>Offres d'emploi</h1>
+        {% for jobOffer in jobOffers %}
+        <div class="jobOffer">
+            <p class="title mb-0">{{ jobOffer.title }}</p>
+            <div class="description abstract">{{ jobOffer.description|raw }}</div>
+            <p><a href="{{ path('app_consultant_job_offer', {id : jobOffer.id}) }}">lire la suite</a></p>
+            <div class="d-flex">
+                <span>{{ jobOffer.city }}</span>
+                <span>&nbsp;{{ jobOffer.recruiter.name is defined and jobOffer.recruiter.name is not null ? ' |
+                    '~jobOffer.recruiter.name : "" }}</span>
+                <a href="{{ path('app_consultant_activate_job_offer' , {id: jobOffer.id}) }}" type="button"
+                    class="btn btn-primary btn-sm ms-auto">ACTIVER</a>
+            </div>
+        </div>
+        {% endfor %}
+        {% include "consultant/_links.html.twig" %}
     </div>
-</div>
+    {% else %}
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="alert-message">
+            Aucune annonce à valider.
+        </div>
+    </div>
+    <div  class=" ms-5 ms-sm-0">
+        {% include "consultant/_links.html.twig" %}
+    </div>
+</section>
+
 {% endif %}
 
 {% endblock %}

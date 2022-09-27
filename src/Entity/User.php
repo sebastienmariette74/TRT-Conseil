@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
     ORM\Entity(repositoryClass: UserRepository::class),
     ORM\InheritanceType("JOINED"),
     ORM\DiscriminatorColumn(name: "type", type: "string"),
-    ORM\DiscriminatorMap(["candidate" => "Candidate", "recruiter" => "Recruiter", "consultant" => "Consultant"])
+    ORM\DiscriminatorMap(["candidate" => "Candidate", "recruiter" => "Recruiter", "consultant" => "Consultant", "administrator" => "Administrator"])
 ]
 #[UniqueEntity(fields: ['email'], message: 'Il y a déjà un compte avec cet Email.')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface

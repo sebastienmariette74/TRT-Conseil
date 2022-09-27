@@ -1,6 +1,0 @@
-<h1>Bienvenue {{ (app.user.firstname and app.user.lastname) ? app.user.firstname|capitalize~" "~app.user.lastname|upper : app.user.email }}</h1>
-
-
-<a href="{{ path('app_candidate') }}">Accueil</a> <br>
-<a href="{{ path('app_candidate_job_offers') }}">Voir les annonces</a> <span class="bubble">{{ jobOffers|length }}</span><br>
-<a href="{{ path('app_candidate_my_applications') }}">Voir mes candidatures</a> <span class="bubble">{{ applications|length }}</span><br>

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Consultant{% endblock %}
+
+{% block body %}
+{# <h1>Bienvenue {{ app.user.email }}</h1> #}
+
+{% include "_partials/_main.html.twig" %}
+
+{% if jobOffer %}
+<section>
+    <div class="jobOffers">
+        <h1>Offre d'emploi <br>
+            {{ jobOffer.recruiter.name is defined and jobOffer.recruiter.name is not null ? jobOffer.recruiter.name :
+            jobOffer.recruiter.email }}
+        </h1>
+        <div class="jobOffer">
+            <p class="title mb-0">{{ jobOffer.title }}</p>
+            <div class="description">{{ jobOffer.description | raw}}</div>
+            <div class="d-flex">
+                <span>{{ jobOffer.city }}</span> &nbsp;|&nbsp;
+                <span>{{ jobOffer.recruiter.name }}</span>
+                {% if not jobOffer.isActivated %}
+                <a href="{{ path('app_consultant_activate_job_offer' , {id: jobOffer.id}) }}" type="button"
+                    class="btn btn-primary btn-sm ms-auto">ACTIVER</a>
+                {% endif %}
+
+            </div>
+        </div>
+        <div>
+            {% include "consultant/_links.html.twig" %}
+        </div>
+    </div>
+</section>
+{% else %}
+<div class="alert alert-info" role="alert">
+    <div class="alert-message">
+        Aucune annonce à valider.
+    </div>
+</div>
+{% include "consultant/_links.html.twig" %}
+{% endif %}
+
+{% endblock %}

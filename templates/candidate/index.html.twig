@@ -4,24 +4,29 @@
 
 {% block body %}
 
-{% include "candidate/_main.html.twig" %}
-{% include "_partials/_flash.html.twig" %}
-
-<div class="card" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">Profil</h5>
-        <p class="card-text">Email : {{ app.user.email }}</p>
-        {% if is_granted("ROLE_CANDIDATE") %}        
-        <p class="card-text">Prénom : {{ app.user.firstname | capitalize }}</p>
-        <p class="card-text">Nom : {{ app.user.lastname | upper }}</p>
-        <p class="card-text">CV : 
-            {% if app.user.cv %}
-            <a href="{{ asset('build/uploads/' ~ app.user.cv ) }} " target="_blank">Voir le CV</a>
-            <a href="{{ path('app_candidate_remove_cv') }}" type="button" class="btn btn-danger btn-sm">supprimer CV</a>
-            {% endif %}
+{% include "_partials/_main.html.twig" %}
+<section>
+    {% include "_partials/_flash.html.twig" %}
+    <div class="home">
+        <h1>Bienvenue <br>  {{ (app.user.firstname and app.user.lastname) ? app.user.firstname|capitalize~"
+            "~app.user.lastname|upper : app.user.email }}
+        </h1>
+        <p>Nous vous proposons de consulter :</p>
+        <ul>
+            <li>
+                <a href="{{ path('app_candidate_job_offers') }}">les offres d'emploi</a>
+            </li>
+            <li>
+                <a href="{{ path('app_candidate_my_applications') }}">vos candidatures</a>
+            </li>
+        </ul>
+        <p>
+            Lorsque vous postulerez à une offre d'emploi, afin que votre candidature soit traitée, vous devrez vous assurer d'avoir fourni un CV dans votre profil.                 
         </p>
-        {% endif %}
-        <a href="{{ path('app_candidate_edit') }}" class="btn btn-sm btn-primary">MODIFIER</a>
+        <p>
+            Vos candidatures seront visibles par les recruteurs après avoir été validé par nos consultants.
+        </p>
     </div>
-</div>
+</section>
+
 {% endblock %}
