@@ -4,20 +4,23 @@
 
 {% block body %}
 
-{% include "candidate/_main.html.twig" %}
+{% include "_partials/_main.html.twig" %}
 
-<div>
-    {{ form_start(form) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.firstname) }}
-    {{ form_row(form.lastname) }}
-    {{ form_row(form.cv) }}
-    <div >
-
-        {{ form_row(form.cvFile) }}
+<section>
+    <div class="edit">
+        <h1>Modification du profil</h1>
+        {{ form_start(form) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.lastname) }}
+        {{ form_row(form.cv) }}
+        <div>
+            {{ form_row(form.cvFile) }}
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Modifier</button>
+        {{ form_end(form) }}
     </div>
-    <button type="submit" class="btn btn-sm btn-primary mt-3">Modifier</button>
-    {{ form_end(form) }}
-</div>
+    {% include "candidate/_links.html.twig" %}
+</section>
 
 {% endblock %}

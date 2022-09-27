@@ -16,8 +16,8 @@ use App\Service\FileUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[
-Route('/candidat', name: 'app_candidate'),
-IsGranted("ROLE_CANDIDATE")
+    Route('/candidat', name: 'app_candidate'),
+    IsGranted("ROLE_CANDIDATE")
 ]
 class CandidateController extends AbstractController
 {
@@ -119,8 +119,38 @@ class CandidateController extends AbstractController
                 $jOId[] = $id;
             }
 
+            $applications = $this->applicationRepo->findBy([
+                'Candidate' => $this->getUser(),
+                'isActivated' => true
+            ]);
+
             return $this->render('candidate/jobOffers.html.twig', compact('jobOffers', 'applications', 'jOId'));
         }
+    }
+
+    #[Route('/annonce/{id}', name: '_job_offer')]
+    public function showJobOffer(JobOfferRepository $jobOfferRepo, $id, ApplicationRepository $applicationRepo): Response
+    {
+
+        $jobOffer = $jobOfferRepo->findOneBy(['id' => $id]);
+
+        $jOId = [];
+        $applications = $applicationRepo->findBy(['Candidate' => $this->getUser()]);
+        foreach ($applications as $key => $value) {
+            $id = $value->getJobOffer()->getId();
+            $jOId[] = $id;
+        }
+
+        $applications = $this->applicationRepo->findBy([
+            'Candidate' => $this->getUser(),
+            'isActivated' => true
+        ]);
+
+        $jobOffers = $this->jobOfferRepo->findBy([
+            'isActivated' => true
+        ]);
+
+        return $this->render('candidate/jobOffer.html.twig', compact('jobOffer', 'jOId', 'jobOffers', 'applications'));
     }
 
     #[Route('/candidature/{id}', name: '_apply')]
@@ -129,13 +159,13 @@ class CandidateController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         } else {
-            if($this->getUser()->getCv()){
+            if ($this->getUser()->getCv()) {
                 $application = new Application();
                 $application = $application->setJobOffer($jobOffer);
                 $application = $application->setCandidate($this->getUser());
-    
+
                 $this->em->persist($application);
-                $this->em->flush();    
+                $this->em->flush();
 
                 $this->addFlash("success", "Candidature envoyée.");
             } else {
@@ -153,16 +183,17 @@ class CandidateController extends AbstractController
             return $this->redirectToRoute('app_login');
         } else {
             $applications = $this->applicationRepo->findBy([
-                'Candidate' => $this->getUser(), 
-                'isActivated' => true]);
+                'Candidate' => $this->getUser(),
+                'isActivated' => true
+            ]);
 
             $jobOffers = $this->jobOfferRepo->findBy([
                 'isActivated' => true
             ]);
-            
-            if(!$applications){
-                $this->addFlash("info", "Si vous ne voyez pas vos candidatures, soit elles n'ont pas encore été activées, soit l'annonce n'existe plus.");
-            }
+
+            // if (!$applications) {
+            //     $this->addFlash("info", "Si vous ne voyez pas vos candidatures, soit elles n'ont pas encore été activées, soit l'annonce n'existe plus.");
+            // }
 
             return $this->render('candidate/applications.html.twig', compact('applications', 'jobOffers'));
         }

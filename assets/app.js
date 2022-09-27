@@ -20,5 +20,9 @@ document.querySelectorAll('[data-bs-toggle="popover"]')
 
 import './js/_home';
 import './js/consultant/_main';
+import './js/layouts/_navbar';
+import './js/layouts/_main';
 
+console.log('ok');
 
+const $ = require('jquery');

@@ -4,23 +4,27 @@
 
 {% block body %}
 
-{% include "recruiter/_main.html.twig" %}
-{% include "_partials/_flash.html.twig" %}
+{% include "_partials/_main.html.twig" %}
+<section>
+    {% include "_partials/_flash.html.twig" %}
+    <div class="home">
+        <h1>Bienvenue <br> {{ app.user.name ? app.user.name|capitalize : app.user.email }}</h1>
 
-<div class="card" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">Profil</h5>
-        <p class="card-text">Email : {{ app.user.email }}</p>
-        {% if is_granted('ROLE_RECRUITER') %}
-        <p class="card-text">Raison sociale : {{ app.user.name }}</p>
-        <p class="card-text">Adresse :
-            {% if app.user.address %}
-            {{ app.user.address }} - {{ app.user.zipcode }} - {{ app.user.city }}
-            {% endif %}
-        </p>
-        {% endif %}
-        <a href="{{ path('app_recruiter_edit') }}" class="btn btn-primary btn-sm">MODIFIER</a>
-    </div>
-</div>
-
+    <p>Nous vous proposons de :</p>
+    <ul>
+        <li>
+            <a href="{{ path('app_recruiter_post') }}">publier une annonce</a>
+        </li>
+        <li>
+            <a href="{{ path('app_recruiter_job_offers') }}">consulter vos annonces</a>
+        </li>
+        <li>
+            <a href="{{ path('app_recruiter_applications') }}">consulter les candidatures</a>
+        </li>
+    </ul>
+    <p>
+        Vos annonces seront visibles par les employés après avoir été validées par nos consultants.
+    </p>
+    </div> 
+</section>
 {% endblock %}

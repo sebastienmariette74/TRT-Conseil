@@ -4,30 +4,23 @@
 
 {% block body %}
 
-<h1>Offres d'emploi</h1>
+<section class="{{ not app.user or not app.user.isActivated ? 'notUser' : '' }}">
 
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Intitulé</th>
-                <th scope="col">Ville</th>
-                <th scope="col">Description</th>
-                <th scope="col"></th>
-
-            </tr>
-        </thead>
-        <tbody>
-            {% for jobOffer in jobOffers %}
-            <tr>
-                <td>{{ jobOffer.title }}</td>
-                <td>{{ jobOffer.city }}</td>
-                <td>{{ jobOffer.description | raw }}</td>
-                <td><a href="{{ app.user ? path('app_candidate_apply', { id : jobOffer.id }) : path('app_register' , {'type' : 'candidat'}) }}" type="button" class="btn btn-sm btn-primary" >POSTULER</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+    <div class="jobOffers">
+        <h1>Offres d'emploi</h1>
+        {% for jobOffer in jobOffers %}
+        <div class="jobOffer">
+            <p class="title mb-0">{{ jobOffer.title }}</p>
+            <div class="description abstract">{{ jobOffer.description|raw }}</div>
+            <p><a href="{{ path('app_candidate_job_offer', {id : jobOffer.id}) }}">lire la suite</a></p>
+            <div class="d-flex">
+                <span>{{ jobOffer.city }}</span>
+                <a href="{{ app.user ? path('app_candidate_apply', { id : jobOffer.id }) : path('app_register' , {'type' : 'candidat'}) }}"
+                    type="button" class="btn btn-sm btn-primary ms-auto">POSTULER</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
 
 {% endblock %}

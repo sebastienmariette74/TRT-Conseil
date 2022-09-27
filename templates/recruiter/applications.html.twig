@@ -1,39 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recruteur{% endblock %}
+{% block title %}Recruteur - Candidatures{% endblock %}
 
 {% block body %}
 
-{% include "recruiter/_main.html.twig" %}
+{% include "_partials/_main.html.twig" %}
 
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Intitulé</th>
-                <th scope="col">Ville</th>
-                <th scope="col">Description</th>
-                <th scope="col">Candidat</th>
-                <th scope="col"></th>
-
-            </tr>
-        </thead>
-        <tbody>
-            {% for application in applications %}
-            <tr>
-                <td>{{ application.jobOffer.title}}</td>
-                <td>{{ application.jobOffer.city}}</td>
-                <td>{{ application.jobOffer.description | raw }}</td>
-                <td>
-                    {{ application.candidate.firstname }} {{ application.candidate.lastname | upper}} <br>
+{% if applications %}
+<section>
+    <div class="applications">
+        <h1>Candidatures</h1>
+        {% for application in applications %}
+        <div class="application row">
+            <div class="col-sm-12 col-md-5 d-flex flex-column align-self-center pe-0">
+                <p class="title mb-0">{{ application.jobOffer.title}}</p>
+                <p><a href="{{ path('app_recruiter_job_offer_details', {id : application.jobOffer.id}) }}">détails de
+                        l'offre</a></p>
+            </div>
+            <div class="colsm-12 col-md-7 ">
+                <div class="card card_application m-auto ">
+                    {{ application.candidate.firstname | capitalize }} {{ application.candidate.lastname | upper}} <br>
                     {{ application.candidate.email }} <br>
                     <a href="{{ asset('build/uploads/' ~ application.candidate.cv ) }} " target="_blank">Voir le CV</a>
-                </td>
-            </tr>
-            {% endfor %}
-
-        </tbody>
-    </table>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% include "recruiter/_links.html.twig" %}
+    </div>
+</section>
+{% else %}
+<div class="alert alert-info" role="alert">
+    <div class="alert-message">
+        Aucune candidature en cours.
+    </div>
 </div>
+{% include "recruiter/_links.html.twig" %}
+{% endif %}
+
+
 
 {% endblock %}

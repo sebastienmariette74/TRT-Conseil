@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recruteur - Offre d'Emploi{% endblock %}
+
+{% block body %}
+
+{% include "_partials/_main.html.twig" %}
+
+<section>
+    {% include "_partials/_flash.html.twig" %}
+    <h1>Offre d'emploi</h1>
+    <div class="jobOffers">
+        <div class="jobOffer">
+            <p class="title mb-0">{{ jobOffer.title }}</p>
+            <div class="description">{{ jobOffer.description | raw}}</div>
+            <div class="d-flex mb-3">
+                <span>{{ jobOffer.city }}</span>
+
+                <a href="{{ path('app_recruiter_edit_job_offer', {id : jobOffer.id} ) }}"
+                    class="btn btn-sm btn-warning ms-auto">MODIFIER</a>
+
+                <a href="{{ path('app_recruiter_remove_job_offer', {id : jobOffer.id} ) }}"
+                    class="btn btn-sm btn-danger ms-2 ">SUPPRIMER</a>
+            </div>
+            {% include "recruiter/_links.html.twig" %}
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,84 @@
+.sidebar{
+    background-color: rgb(37,37,41);
+    position: fixed;
+    left: 0;
+    top: 60px;
+    width: 300px;
+    height: 100vh;
+    color: white;
+    z-index: 1000;
+    transition: all 0.3s ease-in;
+    -webkit-transition: all 0.3s ease-in;
+    -moz-transition: all 0.3s ease-in;
+    -ms-transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    .mainArrow {
+        position: absolute;
+        right: 0;
+        background: rgb(37,37,41);
+        border: none;
+        width: 25px;
+        height: 25px;      
+        img:hover {
+            transform: scale(1.1) ;
+            -webkit-transform: scale(1.1) ;
+            -moz-transform: scale(1.1) ;
+            -ms-transform: scale(1.1) ;
+            -o-transform: scale(1.1) ;
+        }  
+    }
+    h1{
+        margin: 30px 0;
+        font-size: 20px;
+        text-align: center;
+        text-transform: capitalize;
+    }
+    nav {
+        margin-left: 20px;
+        margin-bottom: 30px;
+        a {
+            color: rgba(255,255,255, 0.5);
+            text-decoration: none;
+        }
+        a:hover {
+            color: white;
+        }        
+    }
+    .card {
+        background: rgb(37,37,41);
+        margin: 50px auto 0;
+        width: 90%;
+        // border: 0.5px solid white;
+        box-shadow: 0 0 5px 1px white;
+        h5 {
+            text-align: center;
+            text-transform: uppercase;
+        }
+        a {
+            color: white;
+        }
+        .modify {
+            display: block;
+            width: 100px;
+            margin-left: auto;
+        }
+        .remove-cv {
+            color: #dc3545;
+        }
+    }
+}
+
+
+@media screen and (min-width: 930px){
+    .sidebar {
+        width: 300px;
+        height: 100vh;
+    }
+    
+}
+
+
+

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Application;
+use App\Entity\JobOffer;
 use App\Entity\User;
 use App\Repository\ApplicationRepository;
 use App\Repository\JobOfferRepository;
@@ -95,6 +96,21 @@ class ConsultantController extends AbstractController
             $applications = $this->applicationRepo->findBy(['isActivated' => false]);
 
             return $this->render('consultant/jobOffers.html.twig', compact('accounts', 'jobOffers', 'applications'));
+        }
+    }
+
+    #[Route('/annonces/{id}', name: '_job_offer')]
+    public function showJobOffer(JobOffer $jobOffer): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        } else {            
+            
+            $accounts = $this->userRepo->findByRoles();
+            $jobOffers = $this->jobOfferRepo->findBy(['isActivated' => false]);
+            $applications = $this->applicationRepo->findBy(['isActivated' => false]);
+
+            return $this->render('consultant/jobOffer.html.twig', compact('jobOffer', 'accounts', 'jobOffers', 'applications'));
         }
     }
 

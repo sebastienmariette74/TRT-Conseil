@@ -1,32 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Candidat - Offres d'Emploi{% endblock %}
+{% block title %}Candidat - Offre d'Emploi{% endblock %}
 
 {% block body %}
 
 {% include "_partials/_main.html.twig" %}
-{% if jobOffers %}
+
 <section>
-    {% include "_partials/_flash.html.twig" %}
-    <h1>Offres d'emploi</h1>
+    <h1>Offre d'emploi</h1>
     <div class="jobOffers">
-        {% for jobOffer in jobOffers %}
-        <div class="jobOffer">
+        <div class="jobOffer card">
             <p class="title mb-0">{{ jobOffer.title }}</p>
-            <div class="description abstract">{{ jobOffer.description|raw }}</div>
-            <p><a href="{{ path('app_candidate_job_offer', {id : jobOffer.id}) }}">lire la suite</a></p>
+            <div class="description mb-3">{{ jobOffer.description|raw }}</div>
             <div class="d-flex">
-                <span>{{ jobOffer.city }}</span>
+                <span>{{ jobOffer.city }}</span> 
                 <a href="{{ path('app_candidate_apply', { id : jobOffer.id }) }}" type="button"
                     class="btn btn-sm ms-auto text-uppercase {{ jobOffer.id in jOId ? 'disabled btn-secondary' : 'btn-primary' }}">{{
                     jobOffer.id in jOId ? 'a postulé' : 'POSTULER' }}</a>
             </div>
         </div>
-        {% endfor %}
         {% include "candidate/_links.html.twig" %}
     </div>
 </section>
-{% endif %}
-
 
 {% endblock %}

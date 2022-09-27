@@ -1,0 +1,67 @@
+section {
+    position: relative;
+    width: 350px;
+    width: 100%;
+    margin: 60px auto;    
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-top: 30px;
+    }
+    .jobOffers, .applications, .accounts, .home, .post, .edit {
+        margin: 20px auto;
+        width: 335px;        
+    }
+
+    .jobOffer, .application, .account {
+        margin-bottom: 50px;
+        .title{
+            font-weight: bold;
+        }
+        .abstract {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+    }
+    .card{
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px 1px grey;
+        &_application {
+            width: 14em;
+        }
+    }    
+}
+
+.notUser {
+    position: relative;
+    top: 30px;
+    left: 0;
+    margin: auto;
+}
+
+@media screen and (min-width: 500px){
+    section {
+        width: 100%;
+        .jobOffers, .applications, .accounts, .home, .post, .edit {
+            width: 450px;   
+            margin: auto;     
+        }
+    }
+    .notUser{
+        top: 60px;
+    }
+}
+
+@media screen and (min-width: 930px){
+    section {
+        position: absolute;
+        left: 300px;
+        width: calc(100% - 300px);
+        .jobOffers, .applications, .accounts, .home, .post, .edit {
+            width: 600px;        
+        }
+    }
+}

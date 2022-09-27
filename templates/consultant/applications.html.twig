@@ -5,48 +5,41 @@
 {% block body %}
 {# <h1>Bienvenue {{ app.user.email }}</h1> #}
 
-{% include "consultant/_main.html.twig" %}
+{% include "_partials/_main.html.twig" %}
 
 {% if applications %}
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Intitulé</th>
-                <th scope="col">Ville</th>
-                <th scope="col">Description</th>
-                <th scope="col">Candidat</th>
-                <th scope="col"></th>
-
-            </tr>
-        </thead>
-        <tbody>
-            {% for application in applications %}
-            <tr>
-                <td>{{ application.jobOffer.title}}</td>
-                <td>{{ application.jobOffer.city}}</td>
-                <td>{{ application.jobOffer.description | raw }}</td>
-                <td>
-                    {{ application.candidate.firstname}} {{ application.candidate.lastname | upper }} <br>
-                    {{ application.candidate.email}} <br>
-                    <a href="{{ asset('build/uploads/' ~ application.candidate.cv ) }} " target="_blank">Voir le CV</a>
-                </td>
-                <td>
-                    <a href="{{ path('app_consultant_activate_application' , { id : application.id}) }}" type="button" class="btn btn-sm btn-primary">ACTIVER</a> 
-                    <a href="{{ path('app_consultant_remove_application' , { id : application.id}) }}" type="button" class="btn btn-sm btn-danger">SUPPRIMER</a>
-                </td>  
-            </tr>
-            {% endfor %}
-
-        </tbody>
-    </table>
-</div>
+<section>
+    <div class="applications">
+        <h1>Candidatures à valider</h1>
+        {% for application in applications %}
+        <div class="application">
+            <p class="title mb-0">{{ application.jobOffer.title }}</p>
+            <div class="description abstract">{{ application.jobOffer.description | raw }}</div>
+            <p><a href="{{ path('app_consultant_job_offer', {id : application.jobOffer.id}) }}" class="mb-3"  target="_blank">lire la
+                    suite</a></p>
+            <p>
+                {{ application.candidate.firstname | capitalize }} {{ application.candidate.lastname | upper }} <br>
+                {{ application.candidate.email}} <br>
+                <a href="{{ asset('build/uploads/' ~ application.candidate.cv ) }} " target="_blank">Voir le CV</a>
+            </p>
+            <div class="d-flex justify-content-end mt-3 mt-sm-0">
+                <a href="{{ path('app_consultant_activate_application' , { id : application.id}) }}" style="height:31px"
+                    type="button" class="btn btn-sm btn-primary me-2">ACTIVER</a>
+                <a href="{{ path('app_consultant_remove_application' , { id : application.id}) }}" style="height:31px"
+                    type="button" class="btn btn-sm btn-danger">SUPPRIMER</a>
+            </div>
+        </div>
+        {% endfor %}
+        {% include "consultant/_links.html.twig" %}
+    </div>
+</section>
 {% else %}
 <div class="alert alert-info" role="alert">
     <div class="alert-message">
         Aucune candidature à valider.
     </div>
 </div>
+{% include "consultant/_links.html.twig" %}
 {% endif %}
 
 
