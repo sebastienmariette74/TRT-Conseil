@@ -4,11 +4,14 @@
 
 {% block body %}
 
+<div style="margin: 60px">
+    {% include "_partials/_flash.html.twig" %}
+    {% if error %}
+    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+</div>
 <div class="login">
     <form method="post">
-        {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
 
         {% if app.user %}
         <div class="mb-3">
@@ -24,7 +27,7 @@
         <label for="inputPassword">Mot de passe</label>
         <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password"
             required>
-        <a href="">Mot de passe oublié ?</a>
+        <a href="{{ path('forgotten-password') }}">Mot de passe oublié ?</a>
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
@@ -43,7 +46,6 @@
             <button class="btn btn btn-primary " type="submit">
                 Se connecter
             </button>
-            <a href="" class="align-bottom " >Changer mot de passe</a>
         </div>
     </form>
 </div>
