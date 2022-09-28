@@ -28,24 +28,24 @@ class JobOfferCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')
-                ->setLabel('Id')
+            IdField::new('id', 'Id')
                 ->hideWhenCreating()
                 ->setFormTypeOption('disabled', 'disabled'),
-            AssociationField::new('recruiter')
-                ->setLabel('Recruteur')
+            AssociationField::new('recruiter', 'Recruteur')
                 ->setFormTypeOption('choice_label', 'email')
                 ->hideWhenUpdating(),
-            TextField::new('recruiter.email')
-                ->setLabel('Recruteur')
+            TextField::new('recruiter.email', 'Recruteur')
                 ->onlyWhenUpdating()
                 ->setFormTypeOption('disabled', 'disabled'),
-            TextField::new('title')
-                ->setLabel('Intitulé'),
-            TextField::new('city')
-                ->setLabel('Ville'),
-            TextEditorField::new('description')
-                ->setLabel('Description'),
+            TextField::new('title', 'Intitulé'),
+            TextField::new('city', 'Ville'),
+            TextEditorField::new('description', 'Description')
+                ->setNumOfRows(10)
+                ->hideOnIndex(),
+            TextField::new('description', 'Description')
+                ->setMaxLength(300)
+                ->onlyOnIndex()
+                // ->renderAsHtml()
         ];
     }
     

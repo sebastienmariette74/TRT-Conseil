@@ -108,6 +108,17 @@ class Candidate extends User
         return $this;
     }
 
+    public function getCvUrl(): ?string
+    {
+        if (!$this->cv) {
+            return null;
+        }
+        if (strpos($this->cv, '/') !== false) {
+            return $this->cv;
+        }
+        return sprintf('/uploads/%s', $this->cv);
+    }
+
     // public function setCvFile(?File $cvFile = null): void
     // {
     //     $this->cvFile = $cvFile;

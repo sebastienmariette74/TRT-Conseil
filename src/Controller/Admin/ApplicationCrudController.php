@@ -28,20 +28,15 @@ class ApplicationCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')
-                ->setLabel('Id')
+            IdField::new('id', 'Id')
                 ->onlyOnIndex(),
-            AssociationField::new('jobOffer')
-                ->setLabel("Offre d'emploi")
+            AssociationField::new('jobOffer', "Offre d'emploi")
                 ->setFormTypeOption('choice_label', 'id'),
-            Field::new('jobOffer.recruiter.email')
-                ->setLabel('Recruteur')
+            Field::new('jobOffer.recruiter.email', 'Recruteur')
                 ->onlyOnIndex(),
-            AssociationField::new('Candidate')
-                ->setLabel('Candidat')
+            AssociationField::new('Candidate', 'Candidat')
                 ->setFormTypeOption('choice_label', 'email'),
-            BooleanField::new('isActivated')
-                ->setLabel('Activé'),
+            BooleanField::new('isActivated' ,'Activé')
         ];
     }
     

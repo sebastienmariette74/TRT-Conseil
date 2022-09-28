@@ -18,6 +18,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -39,33 +40,28 @@ class CandidateCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')
-                ->setLabel('Id')
+            IdField::new('id', 'Id')
                 ->hideOnForm(),
-            EmailField::new('email'),     
-            EmailField::new('email')
+            EmailField::new('email', 'Email'),     
+            EmailField::new('email', 'Email')
                 ->onlyWhenUpdating()     
                 ->setFormTypeOption('disabled', 'disabled'),
-            EmailField::new('email')  
+            EmailField::new('email', 'Email')  
                 ->onlyWhenCreating(),
-            Field::new('password')
-                ->setLabel('Mot de passe')
+            Field::new('password', 'Mot de passe')
                 ->onlyWhenUpdating()
                 ->setRequired(false),
-            Field::new('password')
+            Field::new('password', 'Mot de passe')
                 ->setFormType(PasswordType::class)
-                ->setLabel('Mot de passe')
                 ->onlyWhenCreating(),
-            TextField::new('firstname')
-                ->setLabel('Prénom')
+            TextField::new('firstname', 'Prénom')
                 ->setRequired(false),
-            TextField::new('lastname')
-                ->setLabel('Nom')
+            TextField::new('lastname', 'Nom')
                 ->setRequired(false),
-            TextField::new('cv')
-                ->setLabel('CV')
+            TextField::new('cv', 'CV')
                 ->setRequired(false),
             ChoiceField::new('roles')
+                ->renderExpanded()
                 ->autocomplete()
                 ->allowMultipleChoices()
                 ->setChoices([
@@ -73,11 +69,15 @@ class CandidateCrudController extends AbstractCrudController
                     'ROLE_CANDIDATE' => 'ROLE_CANDIDATE',
                     'ROLE_RECRUITER' => 'ROLE_RECRUITER',
                     'ROLE_CONSULTANT' => 'ROLE_CONSULTANT'
-                ]),   
-            BooleanField::new('isVerified')
+                ]),
+            BooleanField::new('isVerified', 'Vérifié')
                 ->onlyOnForms(),       
-            BooleanField::new('isActivated')
-                ->onlyOnForms()       
+            BooleanField::new('isActivated', 'Activé')
+                ->onlyOnForms(),    
+            ImageField::new('cv')
+                ->hideOnIndex()
+            //     ->setBasePath('uploads/') 
+                ->setUploadDir('assets/uploads')
         ];
     }
 

@@ -38,24 +38,22 @@ class ConsultantCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')
-                ->setLabel('Id')
+            IdField::new('id', 'Id')
                 ->hideOnForm(),
-            EmailField::new('email'),     
-            EmailField::new('email')
+            EmailField::new('email', 'Email'),     
+            EmailField::new('email', 'Email')
                 ->onlyWhenUpdating()     
                 ->setFormTypeOption('disabled', 'disabled'),
-            EmailField::new('email')  
+            EmailField::new('email', 'Email')  
                 ->onlyWhenCreating(),
-            Field::new('password')
-                ->setLabel('Mot de passe')
+            Field::new('password', 'Mot de passe')
                 ->onlyWhenUpdating()
                 ->setRequired(false),
-            Field::new('password')
+            Field::new('password', 'Mot de passe')
                 ->setFormType(PasswordType::class)
-                ->setLabel('Mot de passe')
                 ->onlyWhenCreating(),
             ChoiceField::new('roles')
+                ->renderExpanded()
                 ->autocomplete()
                 ->allowMultipleChoices()
                 ->setChoices([
@@ -64,9 +62,9 @@ class ConsultantCrudController extends AbstractCrudController
                     'ROLE_RECRUITER' => 'ROLE_RECRUITER',
                     'ROLE_CONSULTANT' => 'ROLE_CONSULTANT'
                 ]),
-            BooleanField::new('isVerified')
+            BooleanField::new('isVerified', 'Vérifié')
                 ->onlyOnForms(),       
-            BooleanField::new('isActivated')
+            BooleanField::new('isActivated', 'Activé')
                 ->onlyOnForms()     
         ];
     }
