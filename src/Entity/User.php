@@ -40,6 +40,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $isActivated = false;
 
+    #[ORM\Column(length: 100, nullable: true)]
+    public ?string $resetToken = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -134,13 +137,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    // public function serialize()
-    // {
-    //     return serialize(array(
-    //         $this->id,
-    //         $this->email,
-    //         $this->roles
-    //     ));
-    // }
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken($resetToken): self
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
 
 }
