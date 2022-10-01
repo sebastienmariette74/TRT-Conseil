@@ -18,16 +18,15 @@
             <p><a href="{{ path('app_candidate_job_offer', {id : application.jobOffer.id}) }}" class="mb-3">lire la
                     suite</a></p>
             <div class="d-flex">
-                <span>{{ application.jobOffer.city }}</span> &nbsp;|&nbsp;
-                <a href="{{ path('app_candidate_job_offers') }}">offres d'emploi</a> &nbsp;|&nbsp;
-                <a href="{{ path('app_candidate_my_applications') }}">mes candidatures</a>
+                <span>{{ application.jobOffer.city }}</span>
                 <a href="{{ path('app_candidate_application_remove', { id : application.jobOffer.id}) }}"
                     style="height:31px" type="button" class="btn btn-sm btn-danger ms-auto">SUPPRIMER</a>
             </div>
         </div>
         {% endfor %}
-        {% include "candidate/_links.html.twig" %}
+        <div class="ghost"></div>
     </div>
+    {% include "_partials/_footer.html.twig" %}
     {% else %}
     <div class="alert alert-info alert-dismissible" role="alert">
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -35,7 +34,7 @@
             Aucune candidature en cours.
         </div>
     </div>
-    {% include "candidate/_links.html.twig" %}
+    {% include "_partials/_footer.html.twig" %}
 </section>
 {% endif %}
 {% endblock %}

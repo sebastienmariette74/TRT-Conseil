@@ -9,13 +9,21 @@ $(".mainArrow").on("click", function () {
       width: "300px",
       height: "100vh",
     });
-    $('.arrow').css('transform', 'rotate(180deg)');
+    $(".arrow").css("transform", "rotate(180deg)");
   } else {
     $arrowToggle = false;
     $(".sidebar").css({
-        width: "30px",
-        height: "30px"
+      width: "30px",
+      height: "30px",
     });
-    $('.arrow').css('transform', 'rotate(360deg)');
+    $(".arrow").css("transform", "rotate(360deg)");
+  }
+});
+
+$("[href]").each(function () {
+  console.log(this.href);
+  console.log(window.location.href);
+  if (this.href == window.location.href) {
+    $(this).addClass("active");
   }
 });

@@ -3,21 +3,21 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-
-{% include "_partials/_flash.html.twig" %}
-
-{% if app.user %}
-{% if not app.user.isVerified or not app.user.isActivated %}
-<div class="alert alert-danger alert-dismissible" role="alert" style="margin-top:60px">
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    <div class="alert-message">
-        Votre compte n'est pas encore activé. <br>
-        {% if not app.user.isVerified %}Pensez à activer le lien envoyé dans votre mail d'inscription. {% endif %} <br>
-        {% if app.user.isVerified and not app.user.isActivated %}Il sera activé dans un délai de 24 heures.{% endif %}
+<div style="margin-top:60px">
+    {% if app.user %}
+    {% if not app.user.isVerified or not app.user.isActivated %}
+    <div class="alert alert-danger alert-dismissible" role="alert" >
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="alert-message">
+            Votre compte n'est pas encore activé. <br>
+            {% if not app.user.isVerified %}Pensez à activer le lien envoyé dans votre mail d'inscription. {% endif %} <br>
+            {% if app.user.isVerified and not app.user.isActivated %}Il sera activé dans un délai de 24 heures.{% endif %}
+        </div>
     </div>
+    {% endif %}
+    {% endif %}
+    {% include "_partials/_flash.html.twig" %}
 </div>
-{% endif %}
-{% endif %}
 
 <div class="homepage">
     <div class="homepage_text">
@@ -28,7 +28,7 @@
             <li>Si vous êtes recruteur, vous aurez la possibilité de publier des annonces.</li>
         </ul>
         <p>Pour pouvoir postuler ou publier des annonces, vous devrez avoir créé un compte.</p>
-
     </div>
 </div>
+{% include "_partials/_footer.html.twig" %}
 {% endblock %}

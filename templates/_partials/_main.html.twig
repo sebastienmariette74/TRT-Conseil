@@ -10,8 +10,8 @@
 
     <nav>
         <a href="{{ path('app_candidate') }}">Accueil</a> <br>
-        <a href="{{ path('app_candidate_job_offers') }}">Voir les annonces</a> <span class="bubble">{{ jobOffers|length
-            }}</span><br>
+        <a href="{{ path('app_candidate_job_offers') }}">Voir les annonces</a> <br>
+        {# <span class="bubble">{{ jobOffers|length }}</span><br> #}
         <a href="{{ path('app_candidate_my_applications') }}">Voir mes candidatures</a> <span class="bubble">{{
             applications|length }}</span>
     </nav>
@@ -64,7 +64,7 @@
                         {# <a href="{{ path('app_candidate_remove_cv') }}" type="button" class="btn btn-danger btn-sm">supprimer</a> #}
                     </div>
                 {% endif %}
-                <a href="{{ path('app_candidate_edit') }}" class="btn btn-sm btn-primary modify ">MODIFIER</a>
+                <a href="{{ path('app_candidate_edit') }}" class="btn btn-sm btn-warning modify text-black ">MODIFIER</a>
                 
                 {% endif %}
                 {% if is_granted("ROLE_RECRUITER") %}        

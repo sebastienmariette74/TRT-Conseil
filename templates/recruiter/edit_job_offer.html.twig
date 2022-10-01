@@ -17,8 +17,9 @@
         <button type="submit" class="btn btn-sm btn-warning mt-3">MODIFIER</button>
         <a href="{{ path('app_recruiter_job_offers') }}" type="button" class="btn btn-sm btn-danger mt-3">ANNULER</a>
         {{ form_end(form) }}
+        <div class="ghost"></div>
     </div>
-    {% include "recruiter/_links.html.twig" %}
+    {% include "_partials/_footer.html.twig" %}
 </section>
 
 {% endblock %}

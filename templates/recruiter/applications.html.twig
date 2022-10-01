@@ -12,7 +12,7 @@
         <h1>Candidatures</h1>
         {% for application in applications %}
         <div class="application row">
-            <div class="col-sm-12 col-md-5 d-flex flex-column align-self-center pe-0">
+            <div class="col-sm-12 col-md-5 d-flex flex-column align-self-center text-center pe-0">
                 <p class="title mb-0">{{ application.jobOffer.title}}</p>
                 <p><a href="{{ path('app_recruiter_job_offer_details', {id : application.jobOffer.id}) }}">détails de
                         l'offre</a></p>
@@ -26,8 +26,9 @@
             </div>
         </div>
         {% endfor %}
-        {% include "recruiter/_links.html.twig" %}
+        <div class="ghost"></div>
     </div>
+    {% include "_partials/_footer.html.twig" %}
 </section>
 {% else %}
 <div class="alert alert-info" role="alert">

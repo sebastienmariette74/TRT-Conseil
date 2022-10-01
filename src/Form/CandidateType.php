@@ -32,6 +32,7 @@ class CandidateType extends AbstractType
             ])
             ->add('cv', TextType::class, [
                 'label' => 'CV',
+                'required' => false,
                 'attr' => [
                     'maxlength' => 100
                 ]                

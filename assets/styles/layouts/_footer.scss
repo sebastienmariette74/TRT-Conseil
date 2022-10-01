@@ -1,0 +1,21 @@
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #252529;
+    color: #ffffff80;
+    
+}
+.absolute {
+    position: absolute;
+}
+.fixed {
+    position: fixed;
+}
+
+@media screen and (min-width: 930px){
+    footer {
+        left: 0;
+        width : 100%;
+    }
+}

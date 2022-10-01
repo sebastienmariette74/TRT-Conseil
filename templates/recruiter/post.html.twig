@@ -9,7 +9,7 @@
 <section>
     <div class="post">
         <h1>Publier une annonce</h1>
-        <div>
+        <div class="mb-3">
             {{ form_start(form) }}
             {{ form_row(form.title) }}
             {{ form_row(form.city) }}
@@ -17,8 +17,9 @@
             <button type="submit" class="btn btn-sm btn-primary">Publier</button>
             {{ form_end(form) }}
         </div>
+        <div class="ghost"></div>
     </div>
-    {% include "recruiter/_links.html.twig" %}
+    {% include "_partials/_footer.html.twig" %}
 </section>
 
 {% endblock %}

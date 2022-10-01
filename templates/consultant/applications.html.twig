@@ -7,15 +7,15 @@
 
 {% include "_partials/_main.html.twig" %}
 
-{% if applications %}
 <section>
+{% if applications %}
     <div class="applications">
         <h1>Candidatures à valider</h1>
         {% for application in applications %}
         <div class="application">
             <p class="title mb-0">{{ application.jobOffer.title }}</p>
             <div class="description abstract">{{ application.jobOffer.description | raw }}</div>
-            <p><a href="{{ path('app_consultant_job_offer', {id : application.jobOffer.id}) }}" class="mb-3"  target="_blank">lire la
+            <p><a href="{{ path('app_consultant_job_offer', {id : application.jobOffer.id}) }}" class="mb-3">lire la
                     suite</a></p>
             <p>
                 {{ application.candidate.firstname | capitalize }} {{ application.candidate.lastname | upper }} <br>
@@ -30,17 +30,18 @@
             </div>
         </div>
         {% endfor %}
-        {% include "consultant/_links.html.twig" %}
+        <div class="ghost"></div>
     </div>
+    {% include "_partials/_footer.html.twig" %}
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        <div class="alert-message">
+            Aucune candidature à valider.
+        </div>
+    </div>
+    {% include "_partials/_footer.html.twig" %}
+    {% endif %}
 </section>
-{% else %}
-<div class="alert alert-info" role="alert">
-    <div class="alert-message">
-        Aucune candidature à valider.
-    </div>
-</div>
-{% include "consultant/_links.html.twig" %}
-{% endif %}
 
 
 {% endblock %}

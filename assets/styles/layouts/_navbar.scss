@@ -13,7 +13,7 @@
 }
 
 .nav-link {
-    color: rgba(255,255,255, 0.5);
+    color: #6c757d;
     &:hover{
         color : white;
     }
@@ -22,11 +22,6 @@
     }
 }
 
-// .main-toggler {
-//     color: white;
-//     background-color: rgb(37,37,41);
-//     border: none;
-// }
 
 .navbar-toggler:focus {
     box-shadow: none;
@@ -41,6 +36,9 @@
     z-index: 3000;
 }
 
+.navbar-nav .nav-link.active {
+    color : #ffffff80;
+}
 @media screen and (min-width: 820px){
     // .main-toggler {
     //     display: none;

@@ -1,14 +1,14 @@
-<div class="d-flex flex-column flex-sm-row justify-content-around">
-    <div>
-        <a href="{{ path('app_consultant_accounts') }}">comptes utilisateur</a> <span class="bubble bubble-blue">{{
+<div class="d-flex flex-column align-items-center flex-sm-row justify-content-center links">
+    <div class="me-sm-4">
+        <a href="{{ path('app_consultant_accounts') }}" >comptes utilisateur</a> <span class="bubble ">{{
             accounts|length }}</span>
     </div>
-    <div>
-        <a href="{{ path('app_consultant_job_offers') }}">offres d'emploi</a> <span class="bubble bubble-blue">{{
+    <div class="me-sm-4">
+        <a href="{{ path('app_consultant_job_offers') }}">offres d'emploi</a> <span class="bubble ">{{
             jobOffers|length }}</span>
     </div>
     <div>
-        <a href="{{ path('app_consultant_applications') }}">candidatures</a> <span class="bubble bubble-blue">{{
+        <a href="{{ path('app_consultant_applications') }}">candidatures</a> <span class="bubble ">{{
             applications|length }}</span>
     </div>
 </div>

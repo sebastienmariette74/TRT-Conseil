@@ -11,8 +11,8 @@
     {% include "_partials/_flash.html.twig" %}
 
     {% if accounts %}
-    <h1>Comptes à valider</h1>
     <div class="accounts">
+        <h1>Comptes à valider</h1>
 
         {% for account in accounts %}
         <div class="account row">
@@ -25,15 +25,17 @@
             </div>
         </div>
         {% endfor %}
-        {% include "consultant/_links.html.twig" %}
+        <div class="ghost"></div>
     </div>
+    {% include "_partials/_footer.html.twig" %}
     {% else %}
     <div class="alert alert-info" role="alert">
         <div class="alert-message">
             Aucun compte à valider.
         </div>
     </div>
-    {% include "consultant/_links.html.twig" %}
+    <div class="ghost"></div>
+    {% include "_partials/_footer.html.twig" %}
     {% endif %}
 </section>
 

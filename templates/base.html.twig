@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Accueil{% endblock %}</title>
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Accueil{% endblock %}</title>
+    {% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+
+<body>
+    {% include "_partials/_nav.html.twig" %}
+    <div class="container-fluid p-0">
+        {% block body %}
         {% endblock %}
-    </head>
-    <body>
-        {% include "_partials/_nav.html.twig" %}
-        <div class="container-fluid p-0">
-            {% block body %}
-            {% endblock %}
-        </div>
-    </body>
+    </div>
+</body>
+
 </html>

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Candidat{% endblock %}
+{% block title %}Candidat - modification du profil{% endblock %}
 
 {% block body %}
 
@@ -8,7 +8,7 @@
 
 <section>
     <div class="edit">
-        <h1>Modification du profil</h1>
+        <h1>Modifier votre profil</h1>
         {{ form_start(form) }}
         {{ form_row(form.email) }}
         {{ form_row(form.firstname) }}
@@ -17,10 +17,14 @@
         <div>
             {{ form_row(form.cvFile) }}
         </div>
-        <button type="submit" class="btn btn-primary mt-3">Modifier</button>
+        <div class="my-3">
+            <button type="submit" class="btn btn-sm btn-warning">MODIFIER</button>
+            <a href="{{ path('app_candidate')}}" type="button" class="btn btn-sm btn-danger ">ANNULER</a>
+        </div>
         {{ form_end(form) }}
     </div>
-    {% include "candidate/_links.html.twig" %}
+    <div class="ghost"></div>
+    {% include "_partials/_footer.html.twig" %}
 </section>
 
 {% endblock %}

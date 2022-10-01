@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recruteur - Publieur une annonce{% endblock %}
+{% block title %}Recruteur - modifier profil{% endblock %}
 
 {% block body %}
 
@@ -9,7 +9,7 @@
 <section>
 
     <div class="edit">
-        <h1>Publier une annonce</h1>
+        <h1>Modifier votre profil</h1>
         <div>
             {{ form_start(form) }}
             {{ form_row(form.name) }}
@@ -22,8 +22,9 @@
             </div>
             {{ form_end(form) }}
         </div>
+        <div class="ghost"></div>
     </div>
-    {% include "recruiter/_links.html.twig" %}
+    {% include "_partials/_footer.html.twig" %}
 </section>
 
 {% endblock %}

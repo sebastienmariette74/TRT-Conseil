@@ -1,0 +1,26 @@
+<footer class="pt-2 pb-3 pt-sm-3 pb-sm-4
+{% if app.user.isActivated is defined %}
+{{ app.user.isActivated ? 'absolute' : 'fixed' }}
+{% endif %}
+">
+    <div class="container-fluid px-2 ">
+        {% if app.user %}        
+        {% if app.user.isActivated and is_granted("ROLE_CANDIDATE" ) %}
+        {% include "candidate/_links.html.twig" %}
+        {% endif %}
+        {% if app.user.isActivated and is_granted("ROLE_RECRUITER") %}
+        {% include "recruiter/_links.html.twig" %}
+        {% endif %}
+        {% if app.user.isActivated and is_granted("ROLE_CONSULTANT") %}
+        {% include "consultant/_links.html.twig" %}
+        {% endif %}
+        {% endif %}
+        <div class="d-flex align-items-center justify-content-center small mt-2">
+            <div class="text-muted me-3">Copyright &copy; TRT Conseil 2022</div>
+            <div class="d-flex flex-column flex-sm-row">
+                <a href="#" class="me-sm-3">Privacy Policy</a>
+                <a href="#">Terms &amp; Conditions</a>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -25,18 +25,16 @@
             </div>
         </div>
         {% endfor %}
-        {% include "consultant/_links.html.twig" %}
+        <div class="ghost"></div>
     </div>
+    {% include "_partials/_footer.html.twig" %}
     {% else %}
-    <div class="alert alert-info alert-dismissible" role="alert">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="alert alert-info"  role="alert">
         <div class="alert-message">
             Aucune annonce à valider.
         </div>
     </div>
-    <div  class=" ms-5 ms-sm-0">
-        {% include "consultant/_links.html.twig" %}
-    </div>
+    {% include "_partials/_footer.html.twig" %}
 </section>
 
 {% endif %}
