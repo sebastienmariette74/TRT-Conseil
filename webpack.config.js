@@ -61,18 +61,29 @@ Encore
 
     .enablePostCssLoader()
 
-    .copyFiles({
-        from: './assets/uploads',
+    // .copyFiles({
+    //     from: './assets/uploads',
 
-        // optional target path, relative to the output dir
-        to: 'uploads/[path][name].[ext]',
+    //     // optional target path, relative to the output dir
+    //     to: 'uploads/[path][name].[ext]',
 
-        // if versioning is enabled, add the file hash too
-        // to: 'uploads/[path][name].[hash:8].[ext]',
+    //     // if versioning is enabled, add the file hash too
+    //     // to: 'uploads/[path][name].[hash:8].[ext]',
 
-        // only copy files matching this pattern
-        //pattern: /\.(png|jpg|jpeg)$/
-        })
+    //     // only copy files matching this pattern
+    //     //pattern: /\.(png|jpg|jpeg)$/
+        
+    //     })
+
+    .copyFiles([
+        {from: './assets/uploads',to: 'uploads/[path][name].[ext]'},
+        {from: './node_modules/ckeditor4/', to: 'ckeditor/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
+        {from: './node_modules/ckeditor4/adapters', to: 'ckeditor/adapters/[path][name].[ext]'},
+        {from: './node_modules/ckeditor4/lang', to: 'ckeditor/lang/[path][name].[ext]'},
+        {from: './node_modules/ckeditor4/plugins', to: 'ckeditor/plugins/[path][name].[ext]'},
+        {from: './node_modules/ckeditor4/skins', to: 'ckeditor/skins/[path][name].[ext]'},
+        {from: './node_modules/ckeditor4/vendor', to: 'ckeditor/vendor/[path][name].[ext]'}
+    ])
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
@@ -86,6 +97,7 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
+
 ;
 
 module.exports = Encore.getWebpackConfig();

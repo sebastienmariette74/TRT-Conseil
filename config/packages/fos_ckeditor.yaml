@@ -12,3 +12,5 @@ fos_ck_editor:
             # filebrowserBrowseRoute: elfinder
             # filebrowserUploadRoute: "app_recruiter_post"
             # filebrowserBrowseRouteParameters: []
+    base_path: "build/ckeditor"
+    js_path:   "build/ckeditor/ckeditor.js"

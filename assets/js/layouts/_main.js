@@ -21,8 +21,6 @@ $(".mainArrow").on("click", function () {
 });
 
 $("[href]").each(function () {
-  console.log(this.href);
-  console.log(window.location.href);
   if (this.href == window.location.href) {
     $(this).addClass("active");
   }
