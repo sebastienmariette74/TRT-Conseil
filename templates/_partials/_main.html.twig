@@ -61,15 +61,16 @@
                     <div class="d-flex justify-content-center mb-3">
                         <a href="{{ asset('build/uploads/' ~ app.user.cv ) }} " target="_blank">Voir le CV</a> &nbsp;
                         <a href="{{ path('app_candidate_remove_cv') }}" class="remove-cv"> (supprimer)</a>
-                        {# <a href="{{ path('app_candidate_remove_cv') }}" type="button" class="btn btn-danger btn-sm">supprimer</a> #}
                     </div>
                 {% endif %}
                 <a href="{{ path('app_candidate_edit') }}" class="btn btn-sm btn-warning modify text-black ">MODIFIER</a>
                 
                 {% endif %}
-                {% if is_granted("ROLE_RECRUITER") %}        
+                {% if is_granted("ROLE_RECRUITER") %}       
+                {% if app.user.name is defined and app.user.name is not null %}
                 <p class="card-text mb-1">Raison Sociale</p>
-                <p class="text-center mb-3">{{ app.user.name is defined and app.user.name is not null ? app.user.name | capitalize : "" }}</p>
+                <p class="text-center mb-3">{{ app.user.name is defined and app.user.name is not null ? app.user.name | capitalize : "" }}</p>                
+                {% endif %}                 
                 <a href="{{ path('app_recruiter_edit') }}" class="btn btn-sm btn-warning modify text-black">MODIFIER</a>
             {% endif %}
         </div>
