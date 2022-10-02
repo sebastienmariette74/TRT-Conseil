@@ -1,7 +1,5 @@
 <footer class="pt-2 pb-3 pt-sm-3 pb-sm-4
-{% if app.user.isActivated is defined %}
-{{ app.user.isActivated ? 'absolute' : 'fixed' }}
-{% endif %}
+{{ app.user.isActivated is defined ? 'absolute' : 'fixed' }}
 ">
     <div class="container-fluid px-2 ">
         {% if app.user %}        
