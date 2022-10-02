@@ -150,6 +150,7 @@ Pour installer le projet en local. Vous devez avoir un [environnement de dévelo
     * email : ````admin@gmail.com````
     * mot de passe : ````admin````
 
+La base de donnée utilisée pour la construction du projet a été exportée et sauvegargée dans le dossier ```annexes```.
 
 ## Déploiement sur Heroku
 
@@ -172,7 +173,7 @@ Pour garantir un déploiement sur Heroku réussi, je vous conseille de passer pa
 
 # Questions et réflexions
 
-Le document questions et réflexions ce trouve dans le dossier ```annexes```.
+Le document questions et réflexions se trouve dans le dossier ```annexes```.
 
 Vous pouvez également cliquer sur
-ce [lien](https://github.com/sebastienmariette74/TRT-conseil-heroku/blob/main/annexes/questions%20et%20r%C3%A9flexions.pdf) pour le voir.
+ce [lien](https://github.com/sebastienmariette74/TRT-Conseil/blob/main/annexes/questions%20et%20r%C3%A9flexions.pdf) pour le voir.
