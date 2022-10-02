@@ -18,6 +18,8 @@ class AdministratorFixtures extends Fixture
         $administrator   
             ->setEmail('admin@gmail.com')
             ->setRoles(['ROLE_ADMIN'])
+            ->setIsActivated(true)
+            ->setIsVerified(true)
             ->setPassword(
                 $this->userPasswordHasher->hashPassword(
                     $administrator,

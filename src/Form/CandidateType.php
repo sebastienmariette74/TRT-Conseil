@@ -17,15 +17,19 @@ class CandidateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class)
+            ->add('email', EmailType::class, [
+                'disabled' => 'disabled',
+            ])
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
+                'required' => false,
                 'attr' => [
                     'maxlength' => 20
                 ]
             ])
             ->add('lastname', TextType::class, [
                 'label' => 'Nom',
+                'required' => false,
                 'attr' => [
                     'maxlength' => 20
                 ]

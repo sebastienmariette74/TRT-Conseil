@@ -137,7 +137,6 @@ Pour installer le projet en local. Vous devez avoir un [environnement de dévelo
     symfony console doctrine:fixtures:load --no-interaction
     ```
 
-
 * Compiler le javascript
     ```
     npm run build
@@ -176,4 +175,4 @@ Pour garantir un déploiement sur Heroku réussi, je vous conseille de passer pa
 Le document questions et réflexions ce trouve dans le dossier ```annexes```.
 
 Vous pouvez également cliquer sur
-ce [lien](https://github.com/sebastienmariette74/body-and-mind/blob/main/annexes/questions%20et%20reflexions.pdf) pour le voir.
+ce [lien](https://github.com/sebastienmariette74/TRT-conseil-heroku/blob/main/annexes/questions%20et%20r%C3%A9flexions.pdf) pour le voir.

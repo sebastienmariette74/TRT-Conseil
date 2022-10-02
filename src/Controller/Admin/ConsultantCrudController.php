@@ -46,7 +46,8 @@ class ConsultantCrudController extends AbstractCrudController
                 ->setFormTypeOption('disabled', 'disabled'),
             EmailField::new('email', 'Email')  
                 ->onlyWhenCreating(),
-            Field::new('password', 'Mot de passe')
+            Field::new('password', 'Saisir le mot de passe actuel ou un nouveau')
+                ->setFormType(PasswordType::class)
                 ->onlyWhenUpdating()
                 ->setRequired(false),
             Field::new('password', 'Mot de passe')
