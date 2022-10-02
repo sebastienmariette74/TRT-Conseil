@@ -8,6 +8,7 @@
 
 <section>
     {% include "_partials/_flash.html.twig" %}
+    {% if jobOffers %}
     <h1>Mes offres d'emploi</h1>
     <div class="jobOffers">
         {% for jobOffer in jobOffers %}
@@ -29,6 +30,15 @@
         <div class="ghost"></div>
     </div>
     {% include "_partials/_footer.html.twig" %}
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        <div class="alert-message">
+            Aucune annonce en cours.
+        </div>
+    </div>
+    {% include "_partials/_footer.html.twig" %}
+    {% endif %}
+    
 </section>
 
 {% endblock %}

@@ -6,8 +6,10 @@
 
 {% include "_partials/_main.html.twig" %}
 
-{% if applications %}
 <section>
+    {% include "_partials/_flash.html.twig" %}
+    
+    {% if applications %}
     <div class="applications">
         <h1>Candidatures</h1>
         {% for application in applications %}
@@ -29,15 +31,15 @@
         <div class="ghost"></div>
     </div>
     {% include "_partials/_footer.html.twig" %}
-</section>
-{% else %}
-<div class="alert alert-info" role="alert">
-    <div class="alert-message">
-        Aucune candidature en cours.
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        <div class="alert-message">
+            Aucune candidature en cours.
+        </div>
     </div>
-</div>
-{% include "recruiter/_links.html.twig" %}
-{% endif %}
+    {% include "_partials/_footer.html.twig" %}
+    {% endif %}
+</section>
 
 
 
